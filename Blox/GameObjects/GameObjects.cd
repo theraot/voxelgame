@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Hexpoint.Blox.GameObjects.GameObject">
+    <Position X="7.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAQCAAAAAAAAAAAAAAAAAAAAAAAAAIAIQFAAAAAAAQI=</HashCode>
+      <FileName>GameObjects\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.Clutter">
+    <Position X="9" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAIARAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\GameItems\Clutter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.Units.Unit">
+    <Position X="3.75" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Units\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.Units.Player">
+    <Position X="0.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAQAAAIAEAABCAAAAIAIAAAAAARAAAgEAAAA=</HashCode>
+      <FileName>GameObjects\Units\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.Units.Mob">
+    <Position X="3.75" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIARAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Units\Mob.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.GameItemDynamic">
+    <Position X="11.25" Y="1.25" Width="2.25" />
+    <NestedTypes>
+      <Delegate Name="Hexpoint.Blox.GameObjects.GameItems.GameItemDynamic.BounceEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameObjects\GameItems\GameItemDynamic.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Hexpoint.Blox.GameObjects.GameItems.GameItemDynamic.StopEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameObjects\GameItems\GameItemDynamic.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Hexpoint.Blox.GameObjects.GameItems.GameItemDynamic.DecayEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameObjects\GameItems\GameItemDynamic.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BARAAAAAAAAAAAAAAAAAAAAQAAAIgAGIITAAgAAEABA=</HashCode>
+      <FileName>GameObjects\GameItems\GameItemDynamic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.BlockItem">
+    <Position X="14.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQgAAAAAAIABAAgAAAAAA=</HashCode>
+      <FileName>GameObjects\GameItems\BlockItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.Projectile">
+    <Position X="14.5" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABgAgAAAAAA=</HashCode>
+      <FileName>GameObjects\GameItems\Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.LightSource">
+    <Position X="6" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAQAAAABAIAAAAAAAFAIARAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\GameItems\LightSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hexpoint.Blox.GameObjects.GameItems.GameItemStatic">
+    <Position X="7.5" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\GameItems\GameItemStatic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

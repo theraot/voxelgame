@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blox", "Blox\Blox.csproj", "{2034CE24-87CE-4049-B4C6-4D18820D269D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{8BD4F026-5137-473A-8912-8A6B3EA02AD2}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\CubeCoords.png = SolutionItems\CubeCoords.png
+		SolutionItems\PatchNotes.htm = SolutionItems\PatchNotes.htm
+		SolutionItems\PublishSteps.txt = SolutionItems\PublishSteps.txt
+		SolutionItems\StandardResolutions.png = SolutionItems\StandardResolutions.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{271E75B3-6CA9-4043-9267-63BA5C619EE3}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\Assemblies\OpenTK.dll = SolutionItems\Assemblies\OpenTK.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patcher", "Patcher\Patcher.csproj", "{F94670E1-B8C2-402E-A1F2-1870526E267E}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://hornet:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Blox\\Blox.csproj
+		SccProjectName1 = Blox
+		SccLocalPath1 = Blox
+		SccProjectUniqueName2 = Patcher\\Patcher.csproj
+		SccProjectName2 = Patcher
+		SccLocalPath2 = Patcher
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Debug|x64.ActiveCfg = Debug|x64
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Debug|x64.Build.0 = Debug|x64
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Debug|x86.ActiveCfg = Debug|x86
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Debug|x86.Build.0 = Debug|x86
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Release|x64.ActiveCfg = Release|x64
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Release|x64.Build.0 = Release|x64
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Release|x86.ActiveCfg = Release|x86
+		{2034CE24-87CE-4049-B4C6-4D18820D269D}.Release|x86.Build.0 = Release|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Debug|x64.ActiveCfg = Debug|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Debug|x86.ActiveCfg = Debug|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Debug|x86.Build.0 = Debug|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Release|x64.ActiveCfg = Release|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Release|x86.ActiveCfg = Release|x86
+		{F94670E1-B8C2-402E-A1F2-1870526E267E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{271E75B3-6CA9-4043-9267-63BA5C619EE3} = {8BD4F026-5137-473A-8912-8A6B3EA02AD2}
+	EndGlobalSection
+EndGlobal
