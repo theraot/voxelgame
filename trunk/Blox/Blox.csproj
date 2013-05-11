@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2034CE24-87CE-4049-B4C6-4D18820D269D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hexpoint.Blox</RootNamespace>
+    <AssemblyName>VoxelGame</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>\\hornet\VoxelGame\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <InstallUrl>http://hornet.voxelgame.com:3090/</InstallUrl>
+    <SupportUrl>http://www.voxelgame.com/</SupportUrl>
+    <ErrorReportUrl>http://www.voxelgame.com/</ErrorReportUrl>
+    <ProductName>Voxel Game</ProductName>
+    <PublisherName>Hexpoint Systems Inc.</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationVersion>0.1.0.10</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\vgicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Blox.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Blox.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>66AFE34C82974DE0BA8A853009BC2889F5A7BCCD</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Blox_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SolutionItems\Assemblies\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CheckForUpdates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckForUpdates.Designer.cs">
+      <DependentUpon>CheckForUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Hosts\BlockCursorHost.cs" />
+    <Compile Include="Hosts\IHost.cs" />
+    <Compile Include="Hosts\Input\InputHost.cs" />
+    <Compile Include="Hosts\Input\Movement.cs" />
+    <Compile Include="Hosts\Ui\Button.cs" />
+    <Compile Include="Hosts\Ui\Buttons.cs" />
+    <Compile Include="Hosts\Ui\ChatMessage.cs" />
+    <Compile Include="Hosts\Input\SlashCommands.cs" />
+    <Compile Include="Hosts\Ui\UiHost.cs" />
+    <Compile Include="Hosts\World\Block.cs" />
+    <Compile Include="Hosts\World\Render\BlockRender.cs" />
+    <Compile Include="Hosts\World\Blocks.cs" />
+    <Compile Include="Hosts\World\Chunk.cs" />
+    <Compile Include="Hosts\World\ChunkCoords.cs" />
+    <Compile Include="Hosts\World\Chunks.cs" />
+    <Compile Include="Hosts\World\Render\ChunkVbo.cs" />
+    <Compile Include="Hosts\World\Render\ColorRgb.cs" />
+    <Compile Include="Hosts\World\Coords.cs" />
+    <Compile Include="Hosts\World\Generator\ClutterGenerator.cs" />
+    <Compile Include="Hosts\World\Generator\Generator.cs" />
+    <Compile Include="Hosts\World\Generator\PerlinNoise.cs" />
+    <Compile Include="Hosts\World\Generator\TreeGenerator.cs" />
+    <Compile Include="Hosts\World\Lighting.cs" />
+    <Compile Include="Hosts\World\Position.cs" />
+    <Compile Include="Hosts\World\Render\TexCoordsShort.cs" />
+    <Compile Include="Hosts\World\SkyHost.cs" />
+    <Compile Include="Hosts\World\WorldData.cs" />
+    <Compile Include="Hosts\World\WorldHost.cs" />
+    <Compile Include="Hosts\World\WorldSettings.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameActions\AddBlockItem.cs" />
+    <Compile Include="GameActions\AddProjectile.cs" />
+    <Compile Include="GameActions\AddBlockMulti.cs" />
+    <Compile Include="GameActions\AddStaticItem.cs" />
+    <Compile Include="GameActions\RemoveBlockMulti.cs" />
+    <Compile Include="GameActions\PickupBlockItem.cs" />
+    <Compile Include="GameActions\PlayerOption.cs" />
+    <Compile Include="GameActions\RemoveBlockItem.cs" />
+    <Compile Include="GameActions\ServerSync.cs" />
+    <Compile Include="GameActions\ThrowException.cs" />
+    <Compile Include="GameObjects\GameItems\Clutter.cs" />
+    <Compile Include="GameObjects\GameItems\BlockItem.cs" />
+    <Compile Include="GameObjects\GameItems\GameItemDynamic.cs" />
+    <Compile Include="GameObjects\GameItems\Projectile.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameItems\GameItemStatic.cs" />
+    <Compile Include="GameObjects\GameItems\LightSource.cs" />
+    <Compile Include="Launcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Launcher.Designer.cs">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameActions\NetworkClient.cs" />
+    <Compile Include="GameActions\AddBlock.cs" />
+    <Compile Include="GameActions\AddCuboid.cs" />
+    <Compile Include="GameActions\AddStructure.cs" />
+    <Compile Include="GameActions\ChatMsg.cs" />
+    <Compile Include="GameActions\Connect.cs" />
+    <Compile Include="GameActions\Disconnect.cs" />
+    <Compile Include="GameActions\GetWorld.cs" />
+    <Compile Include="GameActions\GameAction.cs" />
+    <Compile Include="GameActions\PlayerInfo.cs" />
+    <Compile Include="GameActions\PlayerMove.cs" />
+    <Compile Include="GameActions\RemoveBlock.cs" />
+    <Compile Include="GameActions\ServerCommand.cs" />
+    <Compile Include="GameActions\ServerMsg.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\NetworkPlayer.cs" />
+    <Compile Include="Server\Controller.cs" />
+    <Compile Include="Server\ServerConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Server\ServerConsole.Designer.cs">
+      <DependentUpon>ServerConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Server\StructureBuilder.cs" />
+    <Compile Include="Server\UPnP.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Sounds\Audio.cs" />
+    <Compile Include="Sounds\Music.cs" />
+    <Compile Include="Sounds\Resources\SoundFiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoundFiles.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GameObjects\Units\Mob.cs" />
+    <Compile Include="GameObjects\Units\Player.cs" />
+    <Compile Include="GameObjects\Units\Unit.cs" />
+    <Compile Include="Textures\Resources\BlockTextures64.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlockTextures64.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\Resources\ClutterTextures64.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClutterTextures64.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\Resources\EnvironmentTextures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnvironmentTextures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\Resources\ItemTextures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemTextures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\Resources\UiTextures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UiTextures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\Resources\UnitTextures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnitTextures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Textures\TextureLoader.cs" />
+    <Compile Include="Utilities\Diagnostics.cs" />
+    <Compile Include="Utilities\DisplayList.cs" />
+    <Compile Include="Utilities\Exceptions.cs" />
+    <Compile Include="Utilities\GlHelper.cs" />
+    <Compile Include="Utilities\Misc.cs" />
+    <Compile Include="Hosts\PerformanceHost.cs" />
+    <EmbeddedResource Include="CheckForUpdates.resx">
+      <DependentUpon>CheckForUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Launcher.resx">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Server\ServerConsole.resx">
+      <DependentUpon>ServerConsole.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sounds\Resources\SoundFiles.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SoundFiles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\BlockTextures64.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlockTextures64.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\ClutterTextures64.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClutterTextures64.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\EnvironmentTextures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnvironmentTextures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\ItemTextures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemTextures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\UiTextures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>UiTextures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Textures\Resources\UnitTextures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UnitTextures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\LauncherBackground2.jpg" />
+    <None Include="Images\vgicon.ico" />
+    <None Include="Images\Progress.gif" />
+    <None Include="Images\GreenCheck.png" />
+    <None Include="Images\GreenFlag.png" />
+    <Content Include="OpenAL32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Sounds\Resources\ItemPickup.wav" />
+    <None Include="Sounds\Resources\Message.wav" />
+    <None Include="Sounds\Resources\PlayerConnect.wav" />
+    <None Include="Sounds\Resources\RemoveBlock.wav" />
+    <None Include="Textures\Blocks64\Bricks.png" />
+    <None Include="Textures\Blocks64\Coal.png" />
+    <None Include="Textures\Blocks64\Cobble.png" />
+    <None Include="Textures\Blocks64\Copper.png" />
+    <None Include="Textures\Blocks64\Crate.png" />
+    <None Include="Textures\Blocks64\Dirt.png" />
+    <None Include="Textures\Blocks64\CrateSide.png" />
+    <None Include="Textures\Blocks64\ElmTree.png" />
+    <None Include="Textures\Blocks64\FancyBlack.png" />
+    <None Include="Textures\Blocks64\FancyGreen.png" />
+    <None Include="Textures\Blocks64\FancyRed.png" />
+    <None Include="Textures\Blocks64\FancyWhite.png" />
+    <None Include="Textures\Blocks64\Grass.png" />
+    <None Include="Textures\Blocks64\GrassSide.png" />
+    <None Include="Textures\Blocks64\Gravel.png" />
+    <None Include="Textures\Blocks64\WoodTile1.png" />
+    <None Include="Textures\Blocks64\Ice.png" />
+    <None Include="Textures\Blocks64\Iron.png" />
+    <None Include="Textures\Blocks64\Lava.png" />
+    <None Include="Textures\Blocks64\LavaRock.png" />
+    <None Include="Textures\Blocks64\Leaves.png" />
+    <None Include="Textures\Blocks64\WoodTile2.png" />
+    <None Include="Textures\Blocks64\Oil.png" />
+    <None Include="Textures\Blocks64\SandDark.png" />
+    <None Include="Textures\Blocks64\SteelPlate2.png" />
+    <None Include="Textures\Blocks64\PrisonBars.png" />
+    <None Include="Textures\Blocks64\Sand.png" />
+    <None Include="Textures\Blocks64\Shelf1.png" />
+    <None Include="Textures\Blocks64\SteelDoorTop.png" />
+    <None Include="Textures\Blocks64\SteelDoorBottom.png" />
+    <None Include="Textures\Blocks64\Snow.png" />
+    <None Include="Textures\Blocks64\Water.png" />
+    <None Include="Textures\Blocks64\Water2.png" />
+    <None Include="Textures\Blocks64\Water3.png" />
+    <None Include="Textures\Blocks64\Water4.png" />
+    <None Include="Textures\Clutter64\Bush.png" />
+    <None Include="Textures\Clutter64\Grass1.png" />
+    <None Include="Textures\Clutter64\Grass2.png" />
+    <None Include="Textures\Clutter64\Grass3.png" />
+    <None Include="Textures\Clutter64\Grass4.png" />
+    <None Include="Textures\Clutter64\Grass5.png" />
+    <None Include="Textures\Clutter64\Grass6.png" />
+    <None Include="Textures\Clutter64\Grass7.png" />
+    <None Include="Textures\Clutter64\Grass8.png" />
+    <None Include="Textures\Ui\Tower.png" />
+    <None Include="Sounds\Resources\AddBlock.wav" />
+    <None Include="Sounds\Resources\JumpOutOfWater.wav" />
+    <None Include="Sounds\Resources\PlayerLanding.wav" />
+    <None Include="Sounds\Resources\Splash.wav" />
+    <None Include="Sounds\Resources\TimeToDreamMono.wav" />
+    <None Include="Sounds\Resources\WaterBubbles.wav" />
+    <Content Include="Textures\Item\Lantern.png" />
+    <Content Include="Textures\Environment\Moon.png" />
+    <Content Include="Textures\Environment\Sun.png" />
+    <Content Include="wrap_oal.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Config.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="GameObjects\GameObjects.cd" />
+    <None Include="Textures\Blocks64\SnowLeaves.png" />
+    <None Include="Textures\Blocks64\SnowSide.png" />
+    <None Include="Textures\Blocks64\Speaker.png" />
+    <None Include="Textures\Blocks64\SteelPlate.png" />
+    <None Include="Textures\Blocks64\Rock.png" />
+    <None Include="Textures\Blocks64\Gold.png" />
+    <None Include="Textures\Blocks64\Tree.png" />
+    <None Include="Textures\Blocks64\TreeTrunk.png" />
+    <None Include="Textures\Ui\Axe.png" />
+    <None Include="Textures\Ui\BlockCursor.png" />
+    <None Include="Textures\Ui\CompassArrow.png" />
+    <None Include="Textures\Ui\CrossHairs.png" />
+    <None Include="Textures\Ui\LargeKeep.png" />
+    <None Include="Textures\Ui\PickAxe.png" />
+    <None Include="Textures\Ui\Shovel.png" />
+    <None Include="Textures\Ui\SmallKeep.png" />
+    <None Include="Textures\Ui\ToolDefault.png" />
+    <None Include="Textures\Ui\ToolFastBuild.png" />
+    <None Include="Textures\Ui\ToolFastDestroy.png" />
+    <None Include="Textures\Ui\ToolCuboid.png" />
+    <None Include="Textures\Ui\ToolTree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Globe1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Textures\Unit\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
