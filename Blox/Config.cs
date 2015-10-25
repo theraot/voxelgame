@@ -35,22 +35,22 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		internal static string UserName;
-		internal static string Server;
-		internal static ushort Port;
-		internal static string LastWorld;
-		internal static bool SoundEnabled;
-		internal static bool MusicEnabled;
-		internal static bool Windowed;
-		internal static bool Maximized;
-		internal static bool InvertMouse;
-		internal static bool VSync;
-		internal static bool Mipmapping;
-		internal static bool Fog;
-		internal static bool LinearMagnificationFilter;
-		internal static bool SmoothLighting;
+		private static string _userName;
+		private static string _server;
+		private static ushort _port;
+		private static string _lastWorld;
+		private static bool _soundEnabled;
+		private static bool _musicEnabled;
+		private static bool _windowed;
+		private static bool _maximized;
+		private static bool _invertMouse;
+		private static bool _vSync;
+		private static bool _mipmapping;
+		private static bool _fog;
+		private static bool _linearMagnificationFilter;
+		private static bool _smoothLighting;
 		// ReSharper disable InconsistentNaming
-		internal static string MOTD;
+		private static string _MOTD;
 		// ReSharper restore InconsistentNaming
 
 		private static ViewDistance _viewDistance;
@@ -110,6 +110,97 @@ namespace Hexpoint.Blox
 				}
 			}
 		}
+
+		internal static string UserName
+		{
+			get { return _userName; }
+			set { _userName = value; }
+		}
+
+		internal static string Server1
+		{
+			get { return _server; }
+			set { _server = value; }
+		}
+
+		internal static ushort Port
+		{
+			get { return _port; }
+			set { _port = value; }
+		}
+
+		internal static string LastWorld
+		{
+			get { return _lastWorld; }
+			set { _lastWorld = value; }
+		}
+
+		internal static bool SoundEnabled
+		{
+			get { return _soundEnabled; }
+			set { _soundEnabled = value; }
+		}
+
+		internal static bool MusicEnabled
+		{
+			get { return _musicEnabled; }
+			set { _musicEnabled = value; }
+		}
+
+		internal static bool Windowed
+		{
+			get { return _windowed; }
+			set { _windowed = value; }
+		}
+
+		internal static bool Maximized
+		{
+			get { return _maximized; }
+			set { _maximized = value; }
+		}
+
+		internal static bool InvertMouse
+		{
+			get { return _invertMouse; }
+			set { _invertMouse = value; }
+		}
+
+		internal static bool VSync
+		{
+			get { return _vSync; }
+			set { _vSync = value; }
+		}
+
+		internal static bool Mipmapping
+		{
+			get { return _mipmapping; }
+			set { _mipmapping = value; }
+		}
+
+		internal static bool Fog
+		{
+			get { return _fog; }
+			set { _fog = value; }
+		}
+
+		internal static bool LinearMagnificationFilter
+		{
+			get { return _linearMagnificationFilter; }
+			set { _linearMagnificationFilter = value; }
+		}
+
+		internal static bool SmoothLighting
+		{
+			get { return _smoothLighting; }
+			set { _smoothLighting = value; }
+		}
+
+		internal static string MOTD
+		{
+			get { return _MOTD; }
+			set { _MOTD = value; }
+		}
+
 		#endregion
 
 		#region Properties (Static)
@@ -152,29 +243,29 @@ namespace Hexpoint.Blox
 				_configXml.Schemas.Add("", XmlReader.Create(new StringReader(Properties.Resources.Config)));
 				_configXml.Validate(null);
 
-				UserName = LoadSetting("UserName");
-				Server = LoadSetting("Server");
-				Port = LoadSetting("Port", Blox.Server.Controller.TCP_LISTENER_PORT);
-				LastWorld = LoadSetting("LastWorld");
+				_userName = LoadSetting("UserName");
+				_server = LoadSetting("Server");
+				_port = LoadSetting("Port", Server.Controller.TCP_LISTENER_PORT);
+				_lastWorld = LoadSetting("LastWorld");
 
 				ModeType modeType;
 				Mode = Enum.TryParse(LoadSetting("Mode"), out modeType) ? modeType : ModeType.SinglePlayer; //if the enum value in the config file is invalid then default it without failing
 
-				Windowed = LoadSetting("Windowed", true);
-				Maximized = LoadSetting("Maximized", true);
-				InvertMouse = LoadSetting("InvertMouse", false);
-				VSync = LoadSetting("VSync", true);
-				Mipmapping = LoadSetting("Mipmapping", true);
-				Fog = LoadSetting("Fog", true);
-				LinearMagnificationFilter = LoadSetting("LinearMagnificationFilter", false);
-				SmoothLighting = LoadSetting("SmoothLighting", true);
-				MOTD = LoadSetting("MOTD");
+				_windowed = LoadSetting("Windowed", true);
+				_maximized = LoadSetting("Maximized", true);
+				_invertMouse = LoadSetting("InvertMouse", false);
+				_vSync = LoadSetting("VSync", true);
+				_mipmapping = LoadSetting("Mipmapping", true);
+				_fog = LoadSetting("Fog", true);
+				_linearMagnificationFilter = LoadSetting("LinearMagnificationFilter", false);
+				_smoothLighting = LoadSetting("SmoothLighting", true);
+				_MOTD = LoadSetting("MOTD");
 
 				ViewDistance vd;
 				ViewDistance = Enum.TryParse(LoadSetting("ViewDistance"), out vd) ? vd : ViewDistance.Standard; //if the enum value in the config file is invalid then default it without failing
 
-				SoundEnabled = LoadSetting("SoundEnabled", true);
-				MusicEnabled = LoadSetting("MusicEnabled", true);
+				_soundEnabled = LoadSetting("SoundEnabled", true);
+				_musicEnabled = LoadSetting("MusicEnabled", true);
 				CreativeMode = LoadSetting("CreativeMode", false);
 
 				const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
@@ -213,23 +304,23 @@ namespace Hexpoint.Blox
 		{
 			try
 			{
-				SaveSetting("UserName", UserName);
-				SaveSetting("Server", Server);
-				SaveSetting("Port", Port.ToString());
-				SaveSetting("LastWorld", LastWorld);
+				SaveSetting("UserName", _userName);
+				SaveSetting("Server", _server);
+				SaveSetting("Port", _port.ToString());
+				SaveSetting("LastWorld", _lastWorld);
 				SaveSetting("Mode", Mode.ToString());
-				SaveSetting("Windowed", Windowed);
-				SaveSetting("Maximized", Maximized);
-				SaveSetting("InvertMouse", InvertMouse);
-				SaveSetting("VSync", VSync);
-				SaveSetting("Mipmapping", Mipmapping);
-				SaveSetting("Fog", Fog);
-				SaveSetting("LinearMagnificationFilter", LinearMagnificationFilter);
-				SaveSetting("SmoothLighting", SmoothLighting);
-				SaveSetting("MOTD", MOTD);
+				SaveSetting("Windowed", _windowed);
+				SaveSetting("Maximized", _maximized);
+				SaveSetting("InvertMouse", _invertMouse);
+				SaveSetting("VSync", _vSync);
+				SaveSetting("Mipmapping", _mipmapping);
+				SaveSetting("Fog", _fog);
+				SaveSetting("LinearMagnificationFilter", _linearMagnificationFilter);
+				SaveSetting("SmoothLighting", _smoothLighting);
+				SaveSetting("MOTD", _MOTD);
 				SaveSetting("ViewDistance", ViewDistance.ToString());
-				SaveSetting("SoundEnabled", SoundEnabled);
-				SaveSetting("MusicEnabled", MusicEnabled);
+				SaveSetting("SoundEnabled", _soundEnabled);
+				SaveSetting("MusicEnabled", _musicEnabled);
 				SaveSetting("CreativeMode", CreativeMode);
 
 				_configXml.Save(_configFilePath);
