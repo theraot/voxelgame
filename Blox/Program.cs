@@ -9,12 +9,12 @@ namespace Hexpoint.Blox
 		[STAThread]
 		static void Main(string[] args)
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-
-			//custom exception handling
+			// Custom exception handling
 			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException); //disables ThreadExceptions so all unhandled exceptions will fire the UnhandledException event (http://stackoverflow.com/questions/2014562/whats-the-difference-between-application-threadexception-and-appdomain-currentd)
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 
 			System.Threading.Thread.CurrentThread.Name = "Main Thread";
 
