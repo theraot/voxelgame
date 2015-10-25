@@ -415,9 +415,6 @@
     <Content Include="wrap_oal.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Config.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="GameObjects\GameObjects.cd" />
     <None Include="Textures\Blocks64\SnowLeaves.png" />
     <None Include="Textures\Blocks64\SnowSide.png" />
