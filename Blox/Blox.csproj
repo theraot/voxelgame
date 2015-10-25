@@ -213,6 +213,7 @@
     <Compile Include="Logbook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
     <Compile Include="Server\NetworkPlayer.cs" />
     <Compile Include="Server\Controller.cs" />
     <Compile Include="Server\ServerConsole.cs">

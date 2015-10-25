@@ -22,7 +22,7 @@ namespace Hexpoint.Blox
 		/// <summary>
 		/// Gets the current Configuration.
 		/// </summary>
-		public static Configuration Configuration { get; private set; }
+		public static Configuration Configuration { get; internal set; }
 
 		/// <summary>
 		/// Gets whatever or not the current process ia a Debug build or not.

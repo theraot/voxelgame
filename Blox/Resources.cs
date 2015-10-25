@@ -19,6 +19,7 @@ namespace Hexpoint.Blox
 
 		public static List<string> GetFolders(string[] prefixes)
 		{
+			// TODO: null Facade.Folder
 			var result = new List<string>();
 			foreach (var prefix in prefixes)
 			{
@@ -33,6 +34,7 @@ namespace Hexpoint.Blox
 
 		public static List<string> GetFolders(string[] prefixes, bool create)
 		{
+			// TODO: null Facade.Folder
 			var result = new List<string>();
 			foreach (var prefix in prefixes)
 			{

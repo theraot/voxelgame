@@ -3,6 +3,7 @@ using Hexpoint.Blox.Hosts.Input;
 using Hexpoint.Blox.Hosts.Ui;
 using Hexpoint.Blox.Hosts.World;
 using System;
+using Hexpoint.Blox.Server;
 
 namespace Hexpoint.Blox
 {
@@ -37,16 +38,18 @@ namespace Hexpoint.Blox
 				{
 					//turn off options not allowed while in normal mode
 					InputHost.IsFloating = false;
-					InputHost.IsStandingOnSolidGround = false; //let the input host figure out on the next update event. this prevents a single mid air jump if canceling creative mode while in mid air
-					if (Game.UiHost != null) Buttons.SelectTool(ToolType.Default); //reset to default tool while not in creative mode (tools are not available)
+					InputHost.IsStandingOnSolidGround = false;
+						//let the input host figure out on the next update event. this prevents a single mid air jump if canceling creative mode while in mid air
+					if (Game.UiHost != null)
+						Buttons.SelectTool(ToolType.Default); //reset to default tool while not in creative mode (tools are not available)
 					BlockCursorHost.MaxDrawDistance = BlockCursorHost.BLOCK_CURSOR_MAX_DRAW_DISTANCE_NORMAL;
 				}
 			}
 		}
 
-		public bool Fog { get; set; }
+		public bool Fog { get; set; } = true;
 
-		public bool InvertMouse { get; set; }
+		public bool InvertMouse { get; set; } = false;
 
 		/// <summary>
 		/// Check this property for logic deciding if the current process is running as a standalone server.
@@ -60,13 +63,13 @@ namespace Hexpoint.Blox
 		/// </summary>
 		public bool IsSinglePlayer { get; private set; }
 
-		public string LastWorld { get; set; }
+		public string LastWorld { get; set; } = string.Empty;
 
-		public bool LinearMagnificationFilter { get; set; }
+		public bool LinearMagnificationFilter { get; set; } = false;
 
-		public bool Maximized { get; set; }
+		public bool Maximized { get; set; } = true;
 
-		public bool Mipmapping { get; set; }
+		public bool Mipmapping { get; set; } = true;
 
 		public ModeType Mode
 		{
@@ -79,19 +82,19 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		public string MOTD { get; set; }
+		public string MOTD { get; set; } = string.Empty;
 
-		public bool MusicEnabled { get; set; }
+		public bool MusicEnabled { get; set; } = true;
 
-		public ushort Port { get; set; }
+		public ushort Port { get; set; } = Controller.TCP_LISTENER_PORT;
 
-		public string Server { get; set; }
+		public string Server { get; set; } = string.Empty;
 
-		public bool SmoothLighting { get; set; }
+		public bool SmoothLighting { get; set; } = true;
 
-		public bool SoundEnabled { get; set; }
+		public bool SoundEnabled { get; set; } = true;
 
-		public string UserName { get; set; }
+		public string UserName { get; set; } = string.Empty;
 
 		/// <summary>View distance in number of chunks.</summary>
 		/// <remarks>Minecrafts distances would be: Far=16 (400 or 512 blocks), Normal=8 (256 blocks), Short=4 (128 blocks), Tiny=2 (64 blocks)</remarks>
@@ -128,7 +131,8 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		public bool VSync { get; set; }
-		public bool Windowed { get; set; }
+		public bool VSync { get; set; } = true;
+
+		public bool Windowed { get; set; } = true;
 	}
 }
