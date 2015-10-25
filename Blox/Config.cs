@@ -43,6 +43,8 @@ namespace Hexpoint.Blox
 				}
 			}
 
+			Settings.Version = new Version(Application.ProductVersion);
+
 			const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
 			SaveDirectory = new DirectoryInfo(Path.Combine(Facade.Folder.FullName, SAVE_FILE_FOLDER_NAME));
 			if (!SaveDirectory.Exists) SaveDirectory = Facade.Folder.CreateSubdirectory(SAVE_FILE_FOLDER_NAME);
