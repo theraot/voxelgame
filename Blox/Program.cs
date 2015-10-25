@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Hexpoint.Blox
@@ -67,8 +66,6 @@ namespace Hexpoint.Blox
 
 			System.Threading.Thread.CurrentThread.Name = "Main Thread";
 
-			RemovePatcher();
-
 			Facade.Initialize("Default.log");
 
 			try
@@ -79,20 +76,6 @@ namespace Hexpoint.Blox
 			{
 				Facade.Logbook.ReportException(exception, true);
 			}
-		}
-		private static void RemovePatcher()
-		{
-			// Remove the patcher here if we find it, this takes care of it whether launching a client or server
-#pragma warning disable CC0004 // Catch block cannot be empty
-			try
-			{
-				File.Delete("Patcher.exe");
-			}
-			catch
-			{
-				// if this hits an exception let the game run anyway, exception is NOT thrown if the file is not there, so not checking File.Exists avoids one roundtrip to the disk
-			}
-#pragma warning restore CC0004 // Catch block cannot be empty
 		}
 
 		private static void Run(string[] args)
