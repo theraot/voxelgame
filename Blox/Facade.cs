@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Threading;
+using System.Windows.Forms;
 using OpenTK;
 
 namespace Hexpoint.Blox
@@ -31,7 +32,7 @@ namespace Hexpoint.Blox
 		/// <summary>
 		/// Gets the path to the folder from where the application is loaded.
 		/// </summary>
-		public static string Folder { get; private set; }
+		public static DirectoryInfo Folder { get; private set; }
 
 		/// <summary>
 		/// Returns the internal name for the application.
@@ -76,12 +77,19 @@ namespace Hexpoint.Blox
 			InternalName = assembly.GetName().Name;
 
 			var location = assembly.Location;
-			Folder = Path.GetDirectoryName(location);
+
+			var folder = Path.GetDirectoryName(location);
+
 			// Let this method throw if Folder is null
-			if (Folder != null && !Folder.EndsWith(Path.DirectorySeparatorChar.ToString(CultureInfo.InvariantCulture)))
+			if (folder != null && !folder.EndsWith(Path.DirectorySeparatorChar.ToString(CultureInfo.InvariantCulture)))
 			{
 				// On Windows, if you run from the root directoy it will have a trailing directory separator but will not otherwise... so we addd it
-				Folder += Path.DirectorySeparatorChar;
+				folder += Path.DirectorySeparatorChar;
+			}
+
+			if (folder != null)
+			{
+				Folder = new DirectoryInfo(folder);
 			}
 
 			// *********************************
