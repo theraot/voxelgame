@@ -13,6 +13,7 @@ namespace Hexpoint.Blox
 			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException); //disables ThreadExceptions so all unhandled exceptions will fire the UnhandledException event (http://stackoverflow.com/questions/2014562/whats-the-difference-between-application-threadexception-and-appdomain-currentd)
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
+			// TODO: Port GUI to OpenGL
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
