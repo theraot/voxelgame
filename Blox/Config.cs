@@ -5,8 +5,6 @@ using System.Xml;
 
 namespace Hexpoint.Blox
 {
-	internal enum ModeType : byte { SinglePlayer, StandaloneServer, JoinServer }
-	internal enum ViewDistance : byte { Tiny, Low, Standard, High, Extreme }
 
 	/// <summary>
 	/// Use Settings class for values that can be altered but not saved.
@@ -49,7 +47,7 @@ namespace Hexpoint.Blox
 				_configXml.Validate(null);
 
 				Configuration.UserName = LoadSetting("UserName");
-				Configuration.Server1 = LoadSetting("Server");
+				Configuration.Server = LoadSetting("Server");
 				Configuration.Port = LoadSetting("Port", Server.Controller.TCP_LISTENER_PORT);
 				Configuration.LastWorld = LoadSetting("LastWorld");
 
@@ -110,7 +108,7 @@ namespace Hexpoint.Blox
 			try
 			{
 				SaveSetting("UserName", Configuration.UserName);
-				SaveSetting("Server", Configuration.Server1);
+				SaveSetting("Server", Configuration.Server);
 				SaveSetting("Port", Configuration.Port.ToString());
 				SaveSetting("LastWorld", Configuration.LastWorld);
 				SaveSetting("Mode", Configuration.Mode.ToString());
