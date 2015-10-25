@@ -38,7 +38,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					new PlayerOption(PlayerOption.OptionType.Admin, System.Text.Encoding.UTF8.GetBytes(args[1])).Send();
 					return;
 				case "broadcast":
-					if (Configuration.IsSinglePlayer) { AddSlashResult("Only available in Multiplayer."); return; }
+					if (Facade.Configuration.IsSinglePlayer) { AddSlashResult("Only available in Multiplayer."); return; }
 					new ServerCommand(ServerCommandType.Broadcast).Send(); //this would still need a way to send the actual message
 					return;
 				case "clear":
@@ -46,7 +46,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					return;
 				case "cr":
 				case "creative":
-					if (args.Length == 1) { AddSlashResult(string.Format("Creative mode {0}.", Configuration.CreativeMode ? "On" : "Off")); return; }
+					if (args.Length == 1) { AddSlashResult(string.Format("Creative mode {0}.", Facade.Configuration.CreativeMode ? "On" : "Off")); return; }
 					if (ArgCountInvalid(2, args)) return;
 					switch (args[1])
 					{
@@ -73,7 +73,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					}
 					break;
 				case "heightmap":
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					AddSlashResult(string.Format("HeightMap value for {0} is {1}", BlockCursorHost.Position, WorldData.Chunks[BlockCursorHost.Position].HeightMap[BlockCursorHost.Position.X % Chunk.CHUNK_SIZE, BlockCursorHost.Position.Z % Chunk.CHUNK_SIZE]));
 					return;
 				case "id":
@@ -83,7 +83,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					for (int i = 0; i < Game.Player.Inventory.Length; i++) Game.Player.Inventory[i] += 200;
 					return;
 				case "itemcount":
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					AddSlashResult(string.Format("World contains {0} items.", WorldData.GameItems.Count));
 					return;
 				case "lantern":
@@ -109,7 +109,7 @@ namespace Hexpoint.Blox.Hosts.Input
 				case "m":
 				case "move":
 					if (ArgCountInvalid(3, args)) return;
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					short moveTo;
 					if (!short.TryParse(args[2], out moveTo)) break;
 					var newCoords = Game.Player.Coords;
@@ -129,7 +129,7 @@ namespace Hexpoint.Blox.Hosts.Input
 				case "movechunk":
 				case "movetochunk":
 					if (ArgCountInvalid(3, args)) return;
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					byte chunkX, chunkZ;
 					if (!byte.TryParse(args[1], out chunkX) || !byte.TryParse(args[2], out chunkZ)) break;
 					var newChunkMoveCoords = new Coords(chunkX * Chunk.CHUNK_SIZE + Chunk.CHUNK_SIZE / 2, Chunk.CHUNK_HEIGHT, chunkZ * Chunk.CHUNK_SIZE + Chunk.CHUNK_SIZE / 2, Game.Player.Coords.Direction, Game.Player.Coords.Pitch);
@@ -137,20 +137,20 @@ namespace Hexpoint.Blox.Hosts.Input
 					break;
 				case "music":
 					if (ArgCountInvalid(2, args)) return;
-					if (!Configuration.SoundEnabled) { AddSlashResult("Sound is disabled."); return; }
+					if (!Facade.Configuration.SoundEnabled) { AddSlashResult("Sound is disabled."); return; }
 					switch (args[1])
 					{
 						case "on":
-							if (!Configuration.MusicEnabled)
+							if (!Facade.Configuration.MusicEnabled)
 							{
-								Configuration.MusicEnabled = true;
+								Facade.Configuration.MusicEnabled = true;
 								Config.Save();
 								Sounds.Music.StartMusic();
 							}
 							AddSlashResult("Music enabled.");
 							return;
 						case "off":
-							Configuration.MusicEnabled = false;
+							Facade.Configuration.MusicEnabled = false;
 							Config.Save();
 							Sounds.Music.StopMusic();
 							AddSlashResult("Music disabled.");
@@ -175,10 +175,10 @@ namespace Hexpoint.Blox.Hosts.Input
 					//-can be used to test obfuscation was done properly by looking at the stack trace displayed in release mode
 					throw new Exception("Manually created exception from slash command.");
 				case "server":
-					AddSlashResult(Configuration.IsSinglePlayer ? "Not applicable in single player mode." : string.Format("{0}:{1}", NetworkClient.ServerIp, NetworkClient.ServerPort));
+					AddSlashResult(Facade.Configuration.IsSinglePlayer ? "Not applicable in single player mode." : string.Format("{0}:{1}", NetworkClient.ServerIp, NetworkClient.ServerPort));
 					return;
 				case "serverversion":
-					if (Configuration.IsSinglePlayer) { AddSlashResult("Not applicable in single player mode."); return; }
+					if (Facade.Configuration.IsSinglePlayer) { AddSlashResult("Not applicable in single player mode."); return; }
 					new ServerCommand(ServerCommandType.ServerVersion).Send();
 					return;
 				case "sp":
@@ -207,12 +207,12 @@ namespace Hexpoint.Blox.Hosts.Input
 					switch (args[1])
 					{
 						case "on":
-							Configuration.SoundEnabled = true;
+							Facade.Configuration.SoundEnabled = true;
 							Sounds.Audio.LoadSounds();
 							AddSlashResult("Sound enabled.");
 							return;
 						case "off":
-							Configuration.SoundEnabled = false;
+							Facade.Configuration.SoundEnabled = false;
 							Sounds.Audio.Dispose();
 							AddSlashResult("Sound disabled.");
 							return;
@@ -223,7 +223,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					return;
 				case "sun":
 					if (ArgCountInvalid(2, 3, args)) return;
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					switch (args[1])
 					{
 						case "loc":
@@ -246,7 +246,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					}
 
 					//following commands only work in single player
-					if (!Configuration.IsSinglePlayer) { AddSlashResult("Cannot change sun speed in Multiplayer."); return; }
+					if (!Facade.Configuration.IsSinglePlayer) { AddSlashResult("Cannot change sun speed in Multiplayer."); return; }
 					switch (args[1])
 					{
 						case "+":
@@ -274,7 +274,7 @@ namespace Hexpoint.Blox.Hosts.Input
 				case "teleport":
 					if (ArgCountInvalid(2, args)) return;
 					int playerId;
-					if (!Configuration.CreativeMode)
+					if (!Facade.Configuration.CreativeMode)
 					{
 						AddSlashResult("Must be in Creative Mode.");
 					}
@@ -318,7 +318,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					switch (args.Length)
 					{
 						case 1:
-							AddSlashResult(string.Format("{0} ({1} blocks)", Configuration.ViewDistance, Settings.ZFar));
+							AddSlashResult(string.Format("{0} ({1} blocks)", Facade.Configuration.ViewDistance, Settings.ZFar));
 							return;
 						case 2:
 							//view distance can be changed by either entering the string view distance or the numeric enum value
@@ -327,7 +327,7 @@ namespace Hexpoint.Blox.Hosts.Input
 							if (Enum.TryParse(args[1], true, out vd) && (int)vd < Enum.GetValues(typeof(ViewDistance)).Length)
 							{
 								Utilities.Misc.ChangeViewDistance(vd);
-								AddSlashResult(string.Format("{0} ({1} blocks)", Configuration.ViewDistance, Settings.ZFar));
+								AddSlashResult(string.Format("{0} ({1} blocks)", Facade.Configuration.ViewDistance, Settings.ZFar));
 							}
 							else
 							{
@@ -337,8 +337,8 @@ namespace Hexpoint.Blox.Hosts.Input
 					}
 					break;
 				case "vsync":
-					Configuration.VSync = !Configuration.VSync;
-					Settings.Game.VSync = Configuration.VSync ? VSyncMode.On : VSyncMode.Off;
+					Facade.Configuration.VSync = !Facade.Configuration.VSync;
+					Settings.Game.VSync = Facade.Configuration.VSync ? VSyncMode.On : VSyncMode.Off;
 					AddSlashResult("VSync: " + Settings.Game.VSync);
 					return;
 				case "walloftext":
@@ -362,7 +362,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					}
 					break;
 				case "wireframe":
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					int mode;
 					GL.GetInteger(GetPName.PolygonMode, out mode);
 					GL.PolygonMode(MaterialFace.FrontAndBack, mode == (int)PolygonMode.Fill ? PolygonMode.Line : PolygonMode.Fill);
@@ -371,7 +371,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					AddSlashResult(string.Format("World name: {0}", Settings.WorldName));
 					return;
 				case "worldsave":
-					if (Configuration.IsSinglePlayer)
+					if (Facade.Configuration.IsSinglePlayer)
 					{
 						System.Threading.Tasks.Task.Factory.StartNew(WorldData.SaveToDisk).ContinueWith(task => AddSlashResult(string.Format("World saved: {0}", Settings.WorldFilePath)));
 					}
@@ -388,7 +388,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					AddSlashResult(string.Format("World type: {0}", WorldData.WorldType));
 					return;
 				case "xmldump":
-					if (!Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
+					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					var xml = WorldSettings.GetXmlByteArray();
 					using (var file = new FileStream(Path.Combine(Config.SaveDirectory.FullName, Settings.WorldName) + ".xml", FileMode.Create))
 					{

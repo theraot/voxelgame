@@ -46,30 +46,30 @@ namespace Hexpoint.Blox
 				_configXml.Schemas.Add("", XmlReader.Create(new StringReader(Properties.Resources.Config)));
 				_configXml.Validate(null);
 
-				Configuration.UserName = LoadSetting("UserName");
-				Configuration.Server = LoadSetting("Server");
-				Configuration.Port = LoadSetting("Port", Server.Controller.TCP_LISTENER_PORT);
-				Configuration.LastWorld = LoadSetting("LastWorld");
+				Facade.Configuration.UserName = LoadSetting("UserName");
+				Facade.Configuration.Server = LoadSetting("Server");
+				Facade.Configuration.Port = LoadSetting("Port", Server.Controller.TCP_LISTENER_PORT);
+				Facade.Configuration.LastWorld = LoadSetting("LastWorld");
 
 				ModeType modeType;
-				Configuration.Mode = Enum.TryParse(LoadSetting("Mode"), out modeType) ? modeType : ModeType.SinglePlayer; //if the enum value in the config file is invalid then default it without failing
+				Facade.Configuration.Mode = Enum.TryParse(LoadSetting("Mode"), out modeType) ? modeType : ModeType.SinglePlayer; //if the enum value in the config file is invalid then default it without failing
 
-				Configuration.Windowed = LoadSetting("Windowed", true);
-				Configuration.Maximized = LoadSetting("Maximized", true);
-				Configuration.InvertMouse = LoadSetting("InvertMouse", false);
-				Configuration.VSync = LoadSetting("VSync", true);
-				Configuration.Mipmapping = LoadSetting("Mipmapping", true);
-				Configuration.Fog = LoadSetting("Fog", true);
-				Configuration.LinearMagnificationFilter = LoadSetting("LinearMagnificationFilter", false);
-				Configuration.SmoothLighting = LoadSetting("SmoothLighting", true);
-				Configuration.MOTD = LoadSetting("MOTD");
+				Facade.Configuration.Windowed = LoadSetting("Windowed", true);
+				Facade.Configuration.Maximized = LoadSetting("Maximized", true);
+				Facade.Configuration.InvertMouse = LoadSetting("InvertMouse", false);
+				Facade.Configuration.VSync = LoadSetting("VSync", true);
+				Facade.Configuration.Mipmapping = LoadSetting("Mipmapping", true);
+				Facade.Configuration.Fog = LoadSetting("Fog", true);
+				Facade.Configuration.LinearMagnificationFilter = LoadSetting("LinearMagnificationFilter", false);
+				Facade.Configuration.SmoothLighting = LoadSetting("SmoothLighting", true);
+				Facade.Configuration.MOTD = LoadSetting("MOTD");
 
 				ViewDistance vd;
-				Configuration.ViewDistance = Enum.TryParse(LoadSetting("ViewDistance"), out vd) ? vd : ViewDistance.Standard; //if the enum value in the config file is invalid then default it without failing
+				Facade.Configuration.ViewDistance = Enum.TryParse(LoadSetting("ViewDistance"), out vd) ? vd : ViewDistance.Standard; //if the enum value in the config file is invalid then default it without failing
 
-				Configuration.SoundEnabled = LoadSetting("SoundEnabled", true);
-				Configuration.MusicEnabled = LoadSetting("MusicEnabled", true);
-				Configuration.CreativeMode = LoadSetting("CreativeMode", false);
+				Facade.Configuration.SoundEnabled = LoadSetting("SoundEnabled", true);
+				Facade.Configuration.MusicEnabled = LoadSetting("MusicEnabled", true);
+				Facade.Configuration.CreativeMode = LoadSetting("CreativeMode", false);
 
 				const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
 				SaveDirectory = new DirectoryInfo(Path.Combine(AppDirectory.FullName, SAVE_FILE_FOLDER_NAME));
@@ -107,24 +107,24 @@ namespace Hexpoint.Blox
 		{
 			try
 			{
-				SaveSetting("UserName", Configuration.UserName);
-				SaveSetting("Server", Configuration.Server);
-				SaveSetting("Port", Configuration.Port.ToString());
-				SaveSetting("LastWorld", Configuration.LastWorld);
-				SaveSetting("Mode", Configuration.Mode.ToString());
-				SaveSetting("Windowed", Configuration.Windowed);
-				SaveSetting("Maximized", Configuration.Maximized);
-				SaveSetting("InvertMouse", Configuration.InvertMouse);
-				SaveSetting("VSync", Configuration.VSync);
-				SaveSetting("Mipmapping", Configuration.Mipmapping);
-				SaveSetting("Fog", Configuration.Fog);
-				SaveSetting("LinearMagnificationFilter", Configuration.LinearMagnificationFilter);
-				SaveSetting("SmoothLighting", Configuration.SmoothLighting);
-				SaveSetting("MOTD", Configuration.MOTD);
-				SaveSetting("ViewDistance", Configuration.ViewDistance.ToString());
-				SaveSetting("SoundEnabled", Configuration.SoundEnabled);
-				SaveSetting("MusicEnabled", Configuration.MusicEnabled);
-				SaveSetting("CreativeMode", Configuration.CreativeMode);
+				SaveSetting("UserName", Facade.Configuration.UserName);
+				SaveSetting("Server", Facade.Configuration.Server);
+				SaveSetting("Port", Facade.Configuration.Port.ToString());
+				SaveSetting("LastWorld", Facade.Configuration.LastWorld);
+				SaveSetting("Mode", Facade.Configuration.Mode.ToString());
+				SaveSetting("Windowed", Facade.Configuration.Windowed);
+				SaveSetting("Maximized", Facade.Configuration.Maximized);
+				SaveSetting("InvertMouse", Facade.Configuration.InvertMouse);
+				SaveSetting("VSync", Facade.Configuration.VSync);
+				SaveSetting("Mipmapping", Facade.Configuration.Mipmapping);
+				SaveSetting("Fog", Facade.Configuration.Fog);
+				SaveSetting("LinearMagnificationFilter", Facade.Configuration.LinearMagnificationFilter);
+				SaveSetting("SmoothLighting", Facade.Configuration.SmoothLighting);
+				SaveSetting("MOTD", Facade.Configuration.MOTD);
+				SaveSetting("ViewDistance", Facade.Configuration.ViewDistance.ToString());
+				SaveSetting("SoundEnabled", Facade.Configuration.SoundEnabled);
+				SaveSetting("MusicEnabled", Facade.Configuration.MusicEnabled);
+				SaveSetting("CreativeMode", Facade.Configuration.CreativeMode);
 
 				_configXml.Save(_configFilePath);
 			}

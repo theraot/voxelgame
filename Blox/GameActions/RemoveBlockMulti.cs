@@ -35,7 +35,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -68,7 +68,7 @@ namespace Hexpoint.Blox.GameActions
 			foreach (var removeBlock in Blocks) WorldData.PlaceBlock(removeBlock.Position, Block.BlockType.Air);
 			Settings.ChunkUpdatesDisabled = false;
 
-			if (!Configuration.IsServer && !Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsServer && !Facade.Configuration.IsSinglePlayer)
 			{
 				foreach (var blockItem in BlockItems)
 				{
@@ -78,7 +78,7 @@ namespace Hexpoint.Blox.GameActions
 				}
 			}
 
-			if (Configuration.IsServer && (Blocks.Count > 0 || BlockItems.Count > 0))
+			if (Facade.Configuration.IsServer && (Blocks.Count > 0 || BlockItems.Count > 0))
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

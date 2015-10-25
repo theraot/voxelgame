@@ -57,7 +57,7 @@ namespace Hexpoint.Blox.Hosts.World
 		/// <remarks>All visible chunks are queued for re-build and then re-buffer, they cannot be directly re-buffered without a re-build first because we dont store all the array data needed to re-buffer them.</remarks>
 		public int QueueAllWithinViewDistance()
 		{
-			Debug.Assert(!Configuration.IsServer, "Servers should not queue chunks.");
+			Debug.Assert(!Facade.Configuration.IsServer, "Servers should not queue chunks.");
 			int chunkCount = 0;
 			for (int x = WorldData.SizeInChunksX - 1; x >= 0; x--) //loop through chunks from east to west
 			{
@@ -84,7 +84,7 @@ namespace Hexpoint.Blox.Hosts.World
 		{
 			if (Settings.UpdateCounter % CHUNK_UPDATE_INTERVAL != 0) return;
 
-			if (!Configuration.IsServer) Game.PerformanceHost.ChunksInMemory = 0;
+			if (!Facade.Configuration.IsServer) Game.PerformanceHost.ChunksInMemory = 0;
 
 			foreach (var chunk in _chunks)
 			{

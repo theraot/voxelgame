@@ -10,16 +10,16 @@ namespace Hexpoint.Blox
 
 	public enum ViewDistance : byte { Tiny, Low, Standard, High, Extreme }
 
-	public static class Configuration
+	public class Configuration
 	{
-		private static bool _creativeMode;
+		private bool _creativeMode;
 
-		private static ModeType _mode;
+		private ModeType _mode;
 
-		private static ViewDistance _viewDistance;
+		private ViewDistance _viewDistance;
 
 		/// <summary>When creative mode is on things like flying and infinite resources are allowed.</summary>
-		public static bool CreativeMode
+		public bool CreativeMode
 		{
 			get { return _creativeMode; }
 			set
@@ -44,31 +44,31 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		public static bool Fog { get; set; }
+		public bool Fog { get; set; }
 
-		public static bool InvertMouse { get; set; }
+		public bool InvertMouse { get; set; }
 
 		/// <summary>
 		/// Check this property for logic deciding if the current process is running as a standalone server.
 		/// True only for standalone servers.
 		/// </summary>
-		public static bool IsServer { get; private set; }
+		public bool IsServer { get; private set; }
 
 		/// <summary>
 		/// Check this property for logic deciding if actions need to be sent over the network or can just be handled locally.
 		/// False for standalone server or client joining a server. True for singleplayer.
 		/// </summary>
-		public static bool IsSinglePlayer { get; private set; }
+		public bool IsSinglePlayer { get; private set; }
 
-		public static string LastWorld { get; set; }
+		public string LastWorld { get; set; }
 
-		public static bool LinearMagnificationFilter { get; set; }
+		public bool LinearMagnificationFilter { get; set; }
 
-		public static bool Maximized { get; set; }
+		public bool Maximized { get; set; }
 
-		public static bool Mipmapping { get; set; }
+		public bool Mipmapping { get; set; }
 
-		public static ModeType Mode
+		public ModeType Mode
 		{
 			get { return _mode; }
 			set
@@ -79,23 +79,23 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		public static string MOTD { get; set; }
+		public string MOTD { get; set; }
 
-		public static bool MusicEnabled { get; set; }
+		public bool MusicEnabled { get; set; }
 
-		public static ushort Port { get; set; }
+		public ushort Port { get; set; }
 
-		public static string Server { get; set; }
+		public string Server { get; set; }
 
-		public static bool SmoothLighting { get; set; }
+		public bool SmoothLighting { get; set; }
 
-		public static bool SoundEnabled { get; set; }
+		public bool SoundEnabled { get; set; }
 
-		public static string UserName { get; set; }
+		public string UserName { get; set; }
 
 		/// <summary>View distance in number of chunks.</summary>
 		/// <remarks>Minecrafts distances would be: Far=16 (400 or 512 blocks), Normal=8 (256 blocks), Short=4 (128 blocks), Tiny=2 (64 blocks)</remarks>
-		public static ViewDistance ViewDistance
+		public ViewDistance ViewDistance
 		{
 			get { return _viewDistance; }
 			set
@@ -128,7 +128,7 @@ namespace Hexpoint.Blox
 			}
 		}
 
-		public static bool VSync { get; set; }
-		public static bool Windowed { get; set; }
+		public bool VSync { get; set; }
+		public bool Windowed { get; set; }
 	}
 }

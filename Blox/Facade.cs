@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Threading;
+using OpenTK;
 
 namespace Hexpoint.Blox
 {
@@ -16,6 +17,11 @@ namespace Hexpoint.Blox
 		private const int INT_Initializing = 1;
 		private const int INT_NotInitialized = 0;
 		private static int _status;
+
+		/// <summary>
+		/// Gets the current Configuration.
+		/// </summary>
+		public static Configuration Configuration { get; private set; }
 
 		/// <summary>
 		/// Gets whatever or not the current process ia a Debug build or not.
@@ -91,7 +97,9 @@ namespace Hexpoint.Blox
 			DebugMode = false;
 			SetDebugMode();
 
-			// TODO load configuration
+			// TODO load Facade.Configuration
+
+			Configuration = new Configuration();
 
 			// *********************************
 			// Creating LogBook
@@ -111,7 +119,7 @@ namespace Hexpoint.Blox
 			Logbook.Trace(TraceEventType.Information, "Internal name: {0}", assembly.FullName);
 
 			// *********************************
-			// Reading main configuration
+			// Reading main Facade.Configuration
 			// *********************************
 
 			// TODO localization

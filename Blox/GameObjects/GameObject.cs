@@ -17,7 +17,7 @@ namespace Hexpoint.Blox.GameObjects
 		protected GameObject(ref Coords coords, int id = -1)
 		{
 			if (!(this is Player) && !coords.IsValidItemLocation) throw new Exception(string.Format("Invalid item location: {0}", coords));
-			Id = id > -1 && !Configuration.IsServer ? id : WorldData.NextGameObjectId; //if this is a server we need to select our own IDs, ignore what the client said
+			Id = id > -1 && !Facade.Configuration.IsServer ? id : WorldData.NextGameObjectId; //if this is a server we need to select our own IDs, ignore what the client said
 			Coords = coords;
 		}
 

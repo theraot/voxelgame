@@ -36,14 +36,14 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Send()
 		{
-			if (!Configuration.IsServer && PendingPickups.Contains(GameObjectId)) return;
+			if (!Facade.Configuration.IsServer && PendingPickups.Contains(GameObjectId)) return;
 			base.Send();
 			PendingPickups.Add(GameObjectId);
 		}
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -63,7 +63,7 @@ namespace Hexpoint.Blox.GameActions
 			chunk.GameItems.TryRemove(GameObjectId, out remove);
 			WorldData.GameItems.TryRemove(GameObjectId, out remove);
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

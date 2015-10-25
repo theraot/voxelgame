@@ -185,7 +185,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			}
 
 			//field of view testing
-			if (Configuration.CreativeMode)
+			if (Facade.Configuration.CreativeMode)
 			{
 				if (_game.Keyboard[Key.F5]) Settings.FieldOfView -= 0.03f;
 				if (_game.Keyboard[Key.F6]) Settings.FieldOfView += 0.03f;
@@ -261,7 +261,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			switch (e.Key)
 			{
 				case Key.C:
-					if (isCtrlPressed) new PlayerOption(PlayerOption.OptionType.Creative, BitConverter.GetBytes(Configuration.CreativeMode ? 0 : 1)).Send();
+					if (isCtrlPressed) new PlayerOption(PlayerOption.OptionType.Creative, BitConverter.GetBytes(Facade.Configuration.CreativeMode ? 0 : 1)).Send();
 					break;
 				case Key.S:
 					if (isCtrlPressed) new PlayerOption(PlayerOption.OptionType.Speed, BitConverter.GetBytes(Math.Abs(Settings.MoveSpeed - Constants.MOVE_SPEED_DEFAULT) < 0.1 ? 5 : 1)).Send();
@@ -290,7 +290,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					break;
 				case Key.Space:
 					//cancel flying (middle mouse button can now be used instead, leaving this for old habits)
-					if (Configuration.CreativeMode && isCtrlPressed) IsFloating = false;
+					if (Facade.Configuration.CreativeMode && isCtrlPressed) IsFloating = false;
 					break;
 				case Key.Tilde:
 					AddOrRemoveBlock(Block.BlockType.Air);
@@ -344,7 +344,7 @@ namespace Hexpoint.Blox.Hosts.Input
 					System.Windows.Forms.Cursor.Hide(); //hide mouse cursor while right mouse button is down
 					break;
 				case MouseButton.Middle:
-					if (Configuration.CreativeMode) IsFloating = !IsFloating;
+					if (Facade.Configuration.CreativeMode) IsFloating = !IsFloating;
 					break;
 				case MouseButton.Button1:
 					_autoRun = !_autoRun;
@@ -377,7 +377,7 @@ namespace Hexpoint.Blox.Hosts.Input
 				if (_rightMouseDownLocation.Y != System.Windows.Forms.Cursor.Position.Y)
 				{
 					//mouse y changed, rotate pitch
-					Movement.RotatePitch(MathHelper.DegreesToRadians((System.Windows.Forms.Cursor.Position.Y - _rightMouseDownLocation.Y) / 3f * (Configuration.InvertMouse ? 1 : -1)));
+					Movement.RotatePitch(MathHelper.DegreesToRadians((System.Windows.Forms.Cursor.Position.Y - _rightMouseDownLocation.Y) / 3f * (Facade.Configuration.InvertMouse ? 1 : -1)));
 				}
 				System.Windows.Forms.Cursor.Position = _rightMouseDownLocation;
 			}
@@ -393,7 +393,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			}
 
 			var blockAtCursor = BlockCursorHost.Position.GetBlock();
-			if (!Configuration.CreativeMode && blockAtCursor.Type == Block.BlockType.Water)
+			if (!Facade.Configuration.CreativeMode && blockAtCursor.Type == Block.BlockType.Water)
 			{
 				if (!blockAtCursor.IsDirty)
 				{

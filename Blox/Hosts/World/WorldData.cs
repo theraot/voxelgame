@@ -172,7 +172,7 @@ namespace Hexpoint.Blox.Hosts.World
 
 			//this was a multiple block placement, prevent placing blocks on yourself and getting stuck; used to be able to place cuboids on yourself and get stuck
 			//only check in single player for now because in multiplayer this could allow the blocks on different clients to get out of sync and placements of multiple blocks in multiplayer will be rare
-			if (Configuration.IsSinglePlayer && isMultipleBlockPlacement && (position.IsOnBlock(ref Game.Player.Coords) || position == Game.Player.CoordsHead.ToPosition())) return;
+			if (Facade.Configuration.IsSinglePlayer && isMultipleBlockPlacement && (position.IsOnBlock(ref Game.Player.Coords) || position == Game.Player.CoordsHead.ToPosition())) return;
 
 			if (type == Block.BlockType.Air)
 			{
@@ -306,7 +306,7 @@ namespace Hexpoint.Blox.Hosts.World
 				}
 			}
 
-			if (!Configuration.IsServer && !isMultipleBlockPlacement)
+			if (!Facade.Configuration.IsServer && !isMultipleBlockPlacement)
 			{
 				Debug.WriteLineIf(type == Block.BlockType.Ice && oldType == Block.BlockType.Water, "Growth change Water->Ice; Multiple lightbox updates and chunk queues are possible");
 				ModifyLightAndQueueChunksForBlockChange(position, isTransparentOldBlock != isTransparentBlock, type);
@@ -353,7 +353,7 @@ namespace Hexpoint.Blox.Hosts.World
 					}
 				}
 			}
-			if (!Configuration.IsServer && !isMultipleCuboidPlacement) ModifyLightAndQueueChunksForCuboidChange(startPosition, endPosition);
+			if (!Facade.Configuration.IsServer && !isMultipleCuboidPlacement) ModifyLightAndQueueChunksForCuboidChange(startPosition, endPosition);
 		}
 		#endregion
 
@@ -403,7 +403,7 @@ namespace Hexpoint.Blox.Hosts.World
 		/// </summary>
 		internal static void LoadFromDisk()
 		{
-			if (Configuration.Mode == ModeType.JoinServer) throw new Exception("World should not be loaded from disk when joining a server.");
+			if (Facade.Configuration.Mode == ModeType.JoinServer) throw new Exception("World should not be loaded from disk when joining a server.");
 
 			var stopwatch = new Stopwatch();
 			stopwatch.Start();
@@ -433,7 +433,7 @@ namespace Hexpoint.Blox.Hosts.World
 			{
 				for (var z = 0; z < SizeInChunksZ; z++)
 				{
-					if (Configuration.IsSinglePlayer) Settings.Launcher.UpdateProgressInvokable(string.Format("Loading Chunks: {0} / {1}", chunkCount, chunkTotal), chunkCount, chunkTotal);
+					if (Facade.Configuration.IsSinglePlayer) Settings.Launcher.UpdateProgressInvokable(string.Format("Loading Chunks: {0} / {1}", chunkCount, chunkTotal), chunkCount, chunkTotal);
 					var chunkBytes = new byte[Chunk.SIZE_IN_BYTES];
 					bytesRead = 0;
 					while (bytesRead < chunkBytes.Length)
@@ -482,7 +482,7 @@ namespace Hexpoint.Blox.Hosts.World
 		/// <remarks>note: changing the tasks from queue to an array showed no performance benefit in this case</remarks>
 		internal static void InitializeAllLightMaps()
 		{
-			if (Configuration.IsServer) return; //servers have no reason to build and store light maps
+			if (Facade.Configuration.IsServer) return; //servers have no reason to build and store light maps
 			
 			var stopwatch = new Stopwatch();
 			stopwatch.Start();

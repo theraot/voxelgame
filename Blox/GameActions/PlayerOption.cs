@@ -58,7 +58,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -70,7 +70,7 @@ namespace Hexpoint.Blox.GameActions
 				}
 			}
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				switch (Option)
 				{
@@ -118,11 +118,11 @@ namespace Hexpoint.Blox.GameActions
 				switch (Option)
 				{
 					case OptionType.Admin:
-						if (Configuration.IsSinglePlayer) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.SlashResult, "Command not necessary in Single Player mode."));
+						if (Facade.Configuration.IsSinglePlayer) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.SlashResult, "Command not necessary in Single Player mode."));
 						break;
 					case OptionType.Creative:
 						if (Value.Length != sizeof(int)) throw new Exception("Invalid value length.");
-						Configuration.CreativeMode = (BitConverter.ToInt32(Value, 0) != 0);
+						Facade.Configuration.CreativeMode = (BitConverter.ToInt32(Value, 0) != 0);
 						Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.SlashResult, string.Format("Creative Mode: {0}", BitConverter.ToInt32(Value, 0) != 0 ? "On (middle mouse button toggles flying)" : "Off")));
 						break;
 					case OptionType.Speed:

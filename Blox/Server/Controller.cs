@@ -51,7 +51,7 @@ namespace Hexpoint.Blox.Server
 				throw new Exception("World file not found: " + Settings.WorldFilePath);
 			}
 
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				WriteToServerConsoleLog("Binding listener to TCP port " + TCP_LISTENER_PORT);
 				_tcpListener = new TcpListener(System.Net.IPAddress.Any, TCP_LISTENER_PORT);
@@ -63,7 +63,7 @@ namespace Hexpoint.Blox.Server
 			Settings.SaveToDiskEveryMinuteThread = new Thread(SaveToDiskEveryMinuteThread) { IsBackground = true, Priority = ThreadPriority.Lowest, Name = "SaveToDiskEveryMinuteThread" }; //lowest priority makes it significantly less choppy when saving in single-player
 			Settings.SaveToDiskEveryMinuteThread.Start();
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				_updateTimer = new System.Timers.Timer(1000 / Constants.UPDATES_PER_SECOND) { AutoReset = true };
 				_updateTimer.Elapsed += UpdateHandler;
@@ -221,7 +221,7 @@ namespace Hexpoint.Blox.Server
 			var actionTypebytes = new byte[sizeof(ushort)];
 			try
 			{
-				if (!string.IsNullOrWhiteSpace(Configuration.MOTD)) new ServerMsg(Configuration.MOTD, player).Send();
+				if (!string.IsNullOrWhiteSpace(Facade.Configuration.MOTD)) new ServerMsg(Facade.Configuration.MOTD, player).Send();
 
 				while (true)
 				{
@@ -324,7 +324,7 @@ namespace Hexpoint.Blox.Server
 		private static void UpdateHandler(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			//todo: this is running slightly slower then the updates on clients, might want to investigate at some point
-			Debug.Assert(Configuration.IsServer, "Controller update handler should only be running for servers.");
+			Debug.Assert(Facade.Configuration.IsServer, "Controller update handler should only be running for servers.");
 
 			//somehow this happens, and would cause an ArgumentOutOfRangeException from FrameEventArgs
 			//gm: must be rare, i ran a server for 10 mins with 3 players and this didnt happen, maybe because we're updating more stuff now, doesnt hurt to leave it though for now

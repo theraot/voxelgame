@@ -34,7 +34,7 @@ namespace Hexpoint.Blox.Utilities
 			if (major <= REQUIRED_GL_VERSION_MAJOR && minor < REQUIRED_GL_VERSION_MINOR) throw new Exception(string.Format("OpenGL version {0}.{1} is required. You are running OpenGL version {2}.{3} This probably means you are using an outdated video card driver.", REQUIRED_GL_VERSION_MAJOR, REQUIRED_GL_VERSION_MINOR, major, minor));
 			if (!SupportsVertexBufferObjectExtension) throw new Exception("Vertex Buffer Object (VBO) extension is not supported. This probably means you are using an outdated video card driver."); //its redundant to check for this if we require OpenGL 1.5, however leaving here in case we lower our required version
 			if (!SupportsTextureNonPowerOfTwoExtension) throw new Exception("Texture Non Power Of Two (NPOT) extension is not supported. This probably means you are using an outdated video card driver."); //its redundant to check for this if we require OpenGL 2.0, however leaving here in case we lower our required version
-			Debug.WriteLineIf(Configuration.ViewDistance == ViewDistance.Extreme, "Warning: Using Extreme view distance"); //reminder for testing, performance can be greatly impacted
+			Debug.WriteLineIf(Facade.Configuration.ViewDistance == ViewDistance.Extreme, "Warning: Using Extreme view distance"); //reminder for testing, performance can be greatly impacted
 		}
 
 		public static void OutputDebugInfo()

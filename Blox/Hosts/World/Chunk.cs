@@ -28,7 +28,7 @@ namespace Hexpoint.Blox.Hosts.World
 			Mobs = new HashSet<Mob>();
 			GameItems = new ConcurrentDictionary<int, GameItemDynamic>();
 
-			if (!Configuration.IsServer) //servers have no current need to allocate memory for light maps
+			if (!Facade.Configuration.IsServer) //servers have no current need to allocate memory for light maps
 			{
 				SkyLightMapInitial = new byte[CHUNK_SIZE, CHUNK_HEIGHT, CHUNK_SIZE]; //takes 96kb @ 32x96x32
 				ItemLightMapInitial = new byte[CHUNK_SIZE, CHUNK_HEIGHT, CHUNK_SIZE]; //takes 96kb @ 32x96x32
@@ -440,7 +440,7 @@ namespace Hexpoint.Blox.Hosts.World
 				return;
 			}
 
-			if (Configuration.SmoothLighting)
+			if (Facade.Configuration.SmoothLighting)
 			{
 				#region Smooth Lighting
 				//SMOOTH LIGHTING MAP (block 4 is used by all 4 vertices, blocks 1,3,5,7 are used by 2 vertices each, blocks 0,2,6,8 are used by one vertex only)
@@ -768,13 +768,13 @@ namespace Hexpoint.Blox.Hosts.World
 		{
 			if (Settings.ChunkUpdatesDisabled) return;
 
-			if (Configuration.IsSinglePlayer || Configuration.IsServer)
+			if (Facade.Configuration.IsSinglePlayer || Facade.Configuration.IsServer)
 			{
 				if (WaterExpanding && WorldData.Chunks.UpdateCounter % WATER_UPDATE_INTERVAL == 0) WaterExpand();
 				if (GrassGrowing && (WorldData.Chunks.UpdateCounter + _grassOffset) % GRASS_UPDATE_INTERVAL == 0) GrassGrow();
 			}
 			
-			if (Configuration.IsServer) return;
+			if (Facade.Configuration.IsServer) return;
 			var dist = DistanceFromPlayer();
 
 			if (ChunkBuildState != BuildState.NotLoaded && dist > Settings.ZFarForChunkUnload)
@@ -856,7 +856,7 @@ namespace Hexpoint.Blox.Hosts.World
 			foreach (var newWaterPosition in newWater.Where(newWaterCoords => newWaterCoords.GetBlock().Type != Block.BlockType.Water))
 			{
 				WorldData.PlaceBlock(newWaterPosition, Block.BlockType.Water);
-				if (Configuration.IsServer)
+				if (Facade.Configuration.IsServer)
 				{
 					var temp = newWaterPosition;
 					addBlocks.Add(new AddBlock(ref temp, Block.BlockType.Water));
@@ -864,7 +864,7 @@ namespace Hexpoint.Blox.Hosts.World
 			}
 			Settings.ChunkUpdatesDisabled = false;
 
-			if (Configuration.IsServer && addBlocks.Count > 0)
+			if (Facade.Configuration.IsServer && addBlocks.Count > 0)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{
@@ -1023,7 +1023,7 @@ namespace Hexpoint.Blox.Hosts.World
 					changesMade++;
 					var changePosition = change.Item2;
 					WorldData.PlaceBlock(changePosition, change.Item1);
-					if (Configuration.IsServer)
+					if (Facade.Configuration.IsServer)
 					{
 						addBlocks.Add(new AddBlock(ref changePosition, change.Item1));
 					}
@@ -1032,7 +1032,7 @@ namespace Hexpoint.Blox.Hosts.World
 			Settings.ChunkUpdatesDisabled = false;
 
 			//send updates to multiplayer clients
-			if (Configuration.IsServer && addBlocks.Count > 0)
+			if (Facade.Configuration.IsServer && addBlocks.Count > 0)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

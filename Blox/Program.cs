@@ -111,7 +111,7 @@ namespace Hexpoint.Blox
 					Application.Run(launcher);
 				}
 			}
-			// TODO: save configuration
+			// TODO: save Facade.Configuration
 
 			// Exit
 			// TODO: Localize text

@@ -39,14 +39,14 @@ namespace Hexpoint.Blox.GameActions
 
 		protected override void Queue()
 		{
-			Debug.Assert(Configuration.IsServer, "Only servers should send ServerSync packets.");
+			Debug.Assert(Facade.Configuration.IsServer, "Only servers should send ServerSync packets.");
 			base.Queue();
 			Write(SunRadians);
 		}
 
 		internal override void Receive()
 		{
-			Debug.Assert(!Configuration.IsSinglePlayer && !Configuration.IsServer, "Single player or Server should not receive ServerSync packets.");
+			Debug.Assert(!Facade.Configuration.IsSinglePlayer && !Facade.Configuration.IsServer, "Single player or Server should not receive ServerSync packets.");
 			lock (TcpClient)
 			{
 				base.Receive();

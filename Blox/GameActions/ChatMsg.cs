@@ -25,7 +25,7 @@ namespace Hexpoint.Blox.GameActions
 
 		protected override void Queue()
 		{
-			if (!Configuration.IsServer) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Global, string.Format("<{0}> {1}", Game.Player.UserName, Message)));
+			if (!Facade.Configuration.IsServer) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Global, string.Format("<{0}> {1}", Game.Player.UserName, Message)));
 			
 			base.Queue();
 			Write(FromPlayerId);
@@ -34,7 +34,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -45,7 +45,7 @@ namespace Hexpoint.Blox.GameActions
 				}
 			}
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				//receive a chat message from a player and send it to all the other connected players
 				Server.Controller.WriteToServerConsoleLog(string.Format("<{0}>({1}): {2}", Server.Controller.Players[ConnectedPlayer.Id].UserName, ConnectedPlayer.Id, Message));

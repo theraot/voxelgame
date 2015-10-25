@@ -35,7 +35,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer && TcpClient != null) //if it's null then the server is initiating the remove
+			if (!Facade.Configuration.IsSinglePlayer && TcpClient != null) //if it's null then the server is initiating the remove
 			{
 				lock (TcpClient)
 				{
@@ -54,7 +54,7 @@ namespace Hexpoint.Blox.GameActions
 			chunk.GameItems.TryRemove(GameObjectId, out remove);
 			WorldData.GameItems.TryRemove(GameObjectId, out remove);
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

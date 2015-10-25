@@ -282,7 +282,7 @@ namespace Hexpoint.Blox.Hosts.World
 		/// </remarks>
 		internal static void InitializeLightMap(Chunk chunk)
 		{
-			if (Configuration.IsServer) return; //servers have no current need to calculate light maps
+			if (Facade.Configuration.IsServer) return; //servers have no current need to calculate light maps
 
 			ResetLightBoxSources(0, Chunk.CHUNK_SIZE - 1, 0, Chunk.CHUNK_HEIGHT - 1, 0, Chunk.CHUNK_SIZE - 1, chunk, chunk.SkyLightMapInitial, chunk.ItemLightMapInitial);
 

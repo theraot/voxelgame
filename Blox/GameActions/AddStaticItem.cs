@@ -50,7 +50,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -70,7 +70,7 @@ namespace Hexpoint.Blox.GameActions
 					throw new NotSupportedException("Clutter cannot be placed yet.");
 				case StaticItemType.LightSource:
 					new LightSource(ref Coords, (LightSourceType)SubType, AttachedToFace, GameObjectId);
-					if (!Configuration.IsServer) //lighting needs to be updated and affected chunks queued for non servers when adding a light source
+					if (!Facade.Configuration.IsServer) //lighting needs to be updated and affected chunks queued for non servers when adding a light source
 					{
 						var position = Coords.ToPosition();
 						Task<Queue<Chunk>>.Factory.StartNew(() => Lighting.UpdateLightBox(ref position, null, false, false)).ContinueWith(task => WorldData.QueueAffectedChunks(task.Result));
@@ -80,7 +80,7 @@ namespace Hexpoint.Blox.GameActions
 					throw new Exception(string.Format("Unknown static item type: {0}", StaticItemType));
 			}
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

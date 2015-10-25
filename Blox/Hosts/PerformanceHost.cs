@@ -75,7 +75,7 @@ namespace Hexpoint.Blox.Hosts
 			if (IsAlternateSecond) //check some things every 2 seconds
 			{
 				Memory = (short)(Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024);
-				if (Configuration.IsSinglePlayer && !Settings.SaveToDiskEveryMinuteThread.IsAlive) throw new Exception("World save thread died."); //this exception will get displayed by the nice msgbox in release mode
+				if (Facade.Configuration.IsSinglePlayer && !Settings.SaveToDiskEveryMinuteThread.IsAlive) throw new Exception("World save thread died."); //this exception will get displayed by the nice msgbox in release mode
 			}
 			else //check other things every alternate 2 seconds to spread out the load
 			{

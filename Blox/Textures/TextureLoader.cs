@@ -139,7 +139,7 @@ namespace Hexpoint.Blox.Textures
 
 			//http://www.opengl.org/sdk/docs/man/xhtml/glTexParameter.xml
 			//GL_NEAREST is generally faster than GL_LINEAR, but it can produce textured images with sharper edges because the transition between texture elements is not as smooth
-			if (createMipmap && Configuration.Mipmapping)
+			if (createMipmap && Facade.Configuration.Mipmapping)
 			{
 				//GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.NearetMipmapLinear); //minification filter
 				//gm: trying dual linear now, i dont notice a performance change and its supposed to look better
@@ -154,7 +154,7 @@ namespace Hexpoint.Blox.Textures
 			//mipmapping is not applicable to the magnification filter
 			//gm: linear makes the textures look much better close up with a bluring effect, fps change wasnt noticable
 			//	-wouldnt want linear on everything, block cursor for example, probably not on ui chars? blurs the nameplates too much, not on ui buttons
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, blur && Configuration.LinearMagnificationFilter ? (int)TextureMagFilter.Linear : (int)TextureMagFilter.Nearest); //magnification filter
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, blur && Facade.Configuration.LinearMagnificationFilter ? (int)TextureMagFilter.Linear : (int)TextureMagFilter.Nearest); //magnification filter
 
 			if (clamp)
 			{

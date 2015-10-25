@@ -204,7 +204,7 @@ namespace Hexpoint.Blox.Hosts.Ui
 				foreach (var button in _blockPickerGridButtons) button.Render();
 			}
 
-			if (Configuration.CreativeMode) foreach (var button in _toolButtons) button.Render();
+			if (Facade.Configuration.CreativeMode) foreach (var button in _toolButtons) button.Render();
 		}
 
 		/// <summary>Check if key pressed is bound to an action button.</summary>
@@ -282,7 +282,7 @@ namespace Hexpoint.Blox.Hosts.Ui
 				}
 			}
 
-			if (Configuration.CreativeMode)
+			if (Facade.Configuration.CreativeMode)
 			{
 				foreach (var button in _toolButtons)
 				{
@@ -331,7 +331,7 @@ namespace Hexpoint.Blox.Hosts.Ui
 				return;
 			}
 
-			if (Configuration.CreativeMode)
+			if (Facade.Configuration.CreativeMode)
 			{
 				FastToolTimer.Stop();
 				_prevFastPositionSent = new Position(); //reset the prev position sent, so the fast build or destroy tools can subsequently be used on the same position again

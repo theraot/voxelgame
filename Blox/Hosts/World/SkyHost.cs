@@ -44,7 +44,7 @@ namespace Hexpoint.Blox.Hosts.World
 				Debug.Assert(value >= DARKEST_SKYLIGHT_STRENGTH && value <= BRIGHTEST_SKYLIGHT_STRENGTH, string.Format("Sunlight strength value should be in the range {0}-{1}", DARKEST_SKYLIGHT_STRENGTH, BRIGHTEST_SKYLIGHT_STRENGTH));
 				_sunLightStrength = value;
 
-				if (Configuration.IsServer || WorldData.Chunks == null) return; //World.Chunks will be null when the game is first loading, no need to requeue the chunks
+				if (Facade.Configuration.IsServer || WorldData.Chunks == null) return; //World.Chunks will be null when the game is first loading, no need to requeue the chunks
 				int chunkCount = WorldData.Chunks.QueueAllWithinViewDistance();
 				Debug.WriteLine("Sunlight strength set to {0}; Queueing {1} visible chunks", value, chunkCount);
 			}

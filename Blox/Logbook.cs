@@ -11,7 +11,7 @@ namespace Hexpoint.Blox
 	/// <remarks>Logbook is a singleton.
 	/// These are the reasons for this:
 	/// A) the responsibility of creating Logbook belongs to the caller
-	/// B) Logbook should not be responsible of getting the configuration to create itself.
+	/// B) Logbook should not be responsible of getting the Facade.Configuration to create itself.
 	/// C) There will be only one main Logbook per AppDomain. </remarks>
 	public class Logbook : MarshalByRefObject
 	{

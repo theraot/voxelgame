@@ -110,7 +110,7 @@ namespace Hexpoint.Blox.GameObjects.GameItems
 		internal override void Update(FrameEventArgs e)
 		{
 			base.Update(e);
-			if (!_queuedForDecay && (Configuration.IsSinglePlayer || Configuration.IsServer || Type == GameItemType.Projectile) && !IsMoving && (DateTime.Now - LastUpdate).TotalSeconds >= DecaySeconds)
+			if (!_queuedForDecay && (Facade.Configuration.IsSinglePlayer || Facade.Configuration.IsServer || Type == GameItemType.Projectile) && !IsMoving && (DateTime.Now - LastUpdate).TotalSeconds >= DecaySeconds)
 			{
 				_queuedForDecay = true;
 				DecayQueue.Enqueue(this);

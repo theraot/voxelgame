@@ -37,7 +37,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <summary>Load and buffer all the sounds for the game.</summary>
 		internal static void LoadSounds()
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 
 			try
 			{
@@ -48,7 +48,7 @@ namespace Hexpoint.Blox.Sounds
 			{
 				//if we cant create an audio context then disable sounds in the config and return
 				Debug.WriteLine("Error creating Audio Context: " + ex.Message);
-				Configuration.SoundEnabled = false;
+				Facade.Configuration.SoundEnabled = false;
 				Config.Save();
 				return;
 			}
@@ -76,7 +76,7 @@ namespace Hexpoint.Blox.Sounds
 				BufferSound(Resources.SoundFiles.TimeToDreamMono, SoundType.MusicTimeToDreamMono);
 
 				//start music here so it only gets started if sound is enabled and there were no exceptions loading sounds
-				if (Configuration.MusicEnabled) Music.StartMusic();
+				if (Facade.Configuration.MusicEnabled) Music.StartMusic();
 			}
 			catch (Exception ex)
 			{
@@ -168,7 +168,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <param name="sound">sound type to play</param>
 		internal static void PlaySound(SoundType sound)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			Play(sound);
 		}
 
@@ -177,7 +177,7 @@ namespace Hexpoint.Blox.Sounds
 		/// /// <param name="gain">volume, 0 none -> 1 full</param>
 		internal static void PlaySoundIfNotAlreadyPlaying(SoundType sound, float gain = 1f)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			if (AL.GetSourceState(_source[(byte)sound]) == ALSourceState.Playing) return;
 			Play(sound, gain);
 		}
@@ -187,7 +187,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <param name="gain">volume, 0 none -> 1 full</param>
 		internal static void PlaySound(SoundType sound, float gain)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			Play(sound, gain);
 		}
 
@@ -196,7 +196,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <param name="gain">volume, 0 none -> 1 full</param>
 		internal static void PlaySoundLooping(SoundType sound, float gain)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			Play(sound, gain, true);
 		}
 
@@ -206,7 +206,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <param name="maxDistance">max distance the sound can be heard</param>
 		internal static void PlaySound(SoundType sound, ref Coords sourceCoords, byte maxDistance = 25)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			float gain = (maxDistance - Game.Player.Coords.GetDistanceExact(ref sourceCoords)) / maxDistance;
 			Play(sound, gain);
 		}
@@ -217,7 +217,7 @@ namespace Hexpoint.Blox.Sounds
 		/// <param name="maxDistance">max distance the sound can be heard</param>
 		internal static void PlaySound(SoundType sound, ref Position sourcePosition, byte maxDistance = 25)
 		{
-			if (!Configuration.SoundEnabled) return;
+			if (!Facade.Configuration.SoundEnabled) return;
 			float gain = (maxDistance - Game.Player.Coords.ToPosition().GetDistanceExact(ref sourcePosition)) / maxDistance;
 			Play(sound, gain);
 		}

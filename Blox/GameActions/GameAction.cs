@@ -37,7 +37,7 @@ namespace Hexpoint.Blox.GameActions
 	{
 		protected GameAction()
 		{
-			if (!Configuration.IsSinglePlayer && !Configuration.IsServer)
+			if (!Facade.Configuration.IsSinglePlayer && !Facade.Configuration.IsServer)
 			{
 				//multiplayer client doesnt always need to pass this because we know how to get it
 				TcpClient = NetworkClient.TcpClient;
@@ -53,10 +53,10 @@ namespace Hexpoint.Blox.GameActions
 			{
 				if (_connectedPlayer != null) throw new Exception("You cannot re-assign the ConnectedPlayer in order to reuse this object because it gets sent to a queue. Create a new object instead.");
 				_connectedPlayer = value;
-				if (Configuration.IsServer) TcpClient = _connectedPlayer.TcpClient;
+				if (Facade.Configuration.IsServer) TcpClient = _connectedPlayer.TcpClient;
 			}
 		}
-		internal bool IsAdmin { get { return Configuration.IsSinglePlayer || _connectedPlayer.IsAdmin; } }
+		internal bool IsAdmin { get { return Facade.Configuration.IsSinglePlayer || _connectedPlayer.IsAdmin; } }
 		public TcpClient TcpClient { get; protected set; }
 		internal abstract ActionType ActionType { get; }
 		public abstract override string ToString();
@@ -68,10 +68,10 @@ namespace Hexpoint.Blox.GameActions
 		private bool _isQueued;
 		protected virtual void Queue()
 		{
-			if (Configuration.IsSinglePlayer) return;
-			if (Configuration.IsServer && TcpClient == null) throw new Exception("Server forgot to set TcpClient.");
-			if (Configuration.IsServer && !TcpClient.Connected) return;
-			if (!Configuration.IsServer && !TcpClient.Connected && ActionType != ActionType.PlayerMove && Game.UiHost != null) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, "Not Connected."));
+			if (Facade.Configuration.IsSinglePlayer) return;
+			if (Facade.Configuration.IsServer && TcpClient == null) throw new Exception("Server forgot to set TcpClient.");
+			if (Facade.Configuration.IsServer && !TcpClient.Connected) return;
+			if (!Facade.Configuration.IsServer && !TcpClient.Connected && ActionType != ActionType.PlayerMove && Game.UiHost != null) Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, "Not Connected."));
 
 			_byteQueue = new byte[sizeof(ushort) + sizeof(int) + DataLength];
 			Write(BitConverter.GetBytes((ushort)ActionType), sizeof(ushort));
@@ -81,7 +81,7 @@ namespace Hexpoint.Blox.GameActions
 		internal bool Immediate;
 		internal virtual void Send()
 		{
-			if (Configuration.IsSinglePlayer)
+			if (Facade.Configuration.IsSinglePlayer)
 			{
 				Receive();
 				return;
@@ -92,7 +92,7 @@ namespace Hexpoint.Blox.GameActions
 				Queue();
 				if (_byteQueueIndex != _byteQueue.Length) throw new Exception(string.Format("{0} DataLength {1} + {2} but queued {3}", ActionType, sizeof(ushort) + sizeof(int), DataLength, _byteQueueIndex));
 
-				if (Configuration.IsServer && !Immediate)
+				if (Facade.Configuration.IsServer && !Immediate)
 				{
 					_isQueued = true;
 					ConnectedPlayer.SendQueue.Enqueue(this);
@@ -110,7 +110,7 @@ namespace Hexpoint.Blox.GameActions
 			}
 			catch (Exception ex)
 			{
-				if (Configuration.IsServer)
+				if (Facade.Configuration.IsServer)
 				{
 					Server.Controller.HandleNetworkError(ConnectedPlayer, ex);
 				}
@@ -174,8 +174,8 @@ namespace Hexpoint.Blox.GameActions
 		#region Receive
 		internal virtual void Receive()
 		{
-			if (Configuration.IsSinglePlayer) return;
-			if (Configuration.IsServer && TcpClient == null) throw new Exception("Server forgot to set TcpClient.");
+			if (Facade.Configuration.IsSinglePlayer) return;
+			if (Facade.Configuration.IsServer && TcpClient == null) throw new Exception("Server forgot to set TcpClient.");
 
 			lock (TcpClient) //this will generally already be locked but not all actions override this method
 			{

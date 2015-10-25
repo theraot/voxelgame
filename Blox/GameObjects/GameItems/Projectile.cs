@@ -35,7 +35,7 @@ namespace Hexpoint.Blox.GameObjects.GameItems
 		/// <summary>Projectile explodes on decay.</summary>
 		internal void OnItemDecay(FrameEventArgs e)
 		{
-			if (Configuration.IsServer || Configuration.IsSinglePlayer)
+			if (Facade.Configuration.IsServer || Facade.Configuration.IsSinglePlayer)
 			{
 				var positions = Coords.AdjacentPositions;
 				var removeBlocks = new List<RemoveBlock>();
@@ -60,7 +60,7 @@ namespace Hexpoint.Blox.GameObjects.GameItems
 				}
 				Settings.ChunkUpdatesDisabled = false;
 
-				if (Configuration.IsServer && removeBlocks.Count > 0)
+				if (Facade.Configuration.IsServer && removeBlocks.Count > 0)
 				{
 					foreach (var player in Server.Controller.Players.Values)
 					{

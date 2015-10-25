@@ -35,7 +35,7 @@ namespace Hexpoint.Blox.GameActions
 
 			//when running client and server it takes a second for the server to start listening so make multiple connection attempts
 			//when joining a server only try once because the attempt can take a long time ~22secs
-			var connectionAttempts = (Configuration.IsSinglePlayer ? 4 : 1);
+			var connectionAttempts = (Facade.Configuration.IsSinglePlayer ? 4 : 1);
 			for (var tries = 0; tries < connectionAttempts; tries++)
 			{
 				Settings.Launcher.UpdateProgressInvokable(string.Format("Connecting ({0} of {1})", tries + 1, connectionAttempts), tries + 1, connectionAttempts);
@@ -56,7 +56,7 @@ namespace Hexpoint.Blox.GameActions
 			_tcpStream.ReadTimeout = 15000; //15s timeout during connect
 
 			Settings.Launcher.UpdateProgressInvokable("Connected...", 0, 0);
-			var connect = new Connect(-1, Configuration.UserName, new Coords());
+			var connect = new Connect(-1, Facade.Configuration.UserName, new Coords());
 			try
 			{
 				connect.Send();
@@ -185,7 +185,7 @@ namespace Hexpoint.Blox.GameActions
 				{
 					if (gameItem.Type == GameItemType.BlockItem && newCoords.GetDistanceExact(ref gameItem.Coords) <= 2)
 					{
-						if (!Configuration.CreativeMode)
+						if (!Facade.Configuration.CreativeMode)
 						{
 							new PickupBlockItem(Game.Player.Id, gameItem.Id).Send();
 						}
@@ -210,7 +210,7 @@ namespace Hexpoint.Blox.GameActions
 			else //add block
 			{
 				var head = Game.Player.CoordsHead;
-				if (!Configuration.CreativeMode && Game.Player.Inventory[(int)blockType] <= 0) { Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, string.Format("No {0} in inventory.", blockType))); return; }
+				if (!Facade.Configuration.CreativeMode && Game.Player.Inventory[(int)blockType] <= 0) { Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, string.Format("No {0} in inventory.", blockType))); return; }
 				if (Block.IsBlockTypeSolid(blockType) && (position.IsOnBlock(ref Game.Player.Coords) || position.IsOnBlock(ref head))) { Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, "Attempted to build solid block on self. Not smart. Block cancelled.")); return; }
 
 				foreach (var player in Players.Values)
@@ -220,7 +220,7 @@ namespace Hexpoint.Blox.GameActions
 					Game.UiHost.AddChatMessage(new ChatMessage(ChatMessageType.Error, "Attempted to build solid block on other player. Not nice. Block cancelled.")); return;
 				}
 				new AddBlock(ref position, blockType).Send();
-				if (!Configuration.CreativeMode) Game.Player.Inventory[(int)blockType]--;
+				if (!Facade.Configuration.CreativeMode) Game.Player.Inventory[(int)blockType]--;
 			}
 		}
 

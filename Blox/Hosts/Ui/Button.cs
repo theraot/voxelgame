@@ -56,11 +56,11 @@ namespace Hexpoint.Blox.Hosts.Ui
 			//if (Hightlight || HighlightUnavailable) Utilities.GlHelper.ResetColor();
 			if (Hightlight) Utilities.GlHelper.ResetColor();
 
-			if ((!Configuration.CreativeMode && HasInventoryValue) || HasKeyBind) //there will be one or both numeric overlays on this button
+			if ((!Facade.Configuration.CreativeMode && HasInventoryValue) || HasKeyBind) //there will be one or both numeric overlays on this button
 			{
 				GL.BindTexture(TextureTarget.Texture2D, Textures.TextureLoader.CharacterAtlasSmall);
 
-				if (!Configuration.CreativeMode && HasInventoryValue) //render overlay inventory value on button
+				if (!Facade.Configuration.CreativeMode && HasInventoryValue) //render overlay inventory value on button
 				{
 					GL.Color3(Color.Yellow);
 					var str = Game.Player.Inventory[(int)BlockType].ToString();

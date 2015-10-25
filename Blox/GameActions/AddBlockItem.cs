@@ -42,7 +42,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Configuration.IsSinglePlayer)
+			if (!Facade.Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -60,7 +60,7 @@ namespace Hexpoint.Blox.GameActions
 			//add the new block item to the chunk game items (note: constructor adds the item to the collection)
 			var newBlockItem = new BlockItem(ref Coords, BlockType, Velocity, GameObjectId);
 
-			if (Configuration.IsServer)
+			if (Facade.Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

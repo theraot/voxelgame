@@ -31,39 +31,39 @@ namespace Hexpoint.Blox
 			CheckForUpdates.BeginGetNewestVersionNumber(task => { if (!task.IsFaulted && CheckForUpdates.IsNewerVersion(new Version(task.Result))) btnUpgradeAvailable.Visible = true; });
 #endif
 
-			if (Configuration.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
+			if (Facade.Configuration.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
 			GameMode_Changed(null, null);
-			txtUserName.Text = Configuration.UserName.Length == 0 ? Environment.MachineName : Configuration.UserName;
+			txtUserName.Text = Facade.Configuration.UserName.Length == 0 ? Environment.MachineName : Facade.Configuration.UserName;
 
 			//server settings
-			var serverIndex = ddlServerIp.FindStringExact(Configuration.Server1, 0);
+			var serverIndex = ddlServerIp.FindStringExact(Facade.Configuration.Server, 0);
 			ddlServerIp.SelectedIndex = (serverIndex < 0 ? 0 : serverIndex);
-			txtPort.Text = Configuration.Port.ToString();
+			txtPort.Text = Facade.Configuration.Port.ToString();
 
 			//world settings
 			ddlNewWorldSize.Items.AddRange(new object[] { "4 x 4", "6 x 6", "8 x 8", "12 x 12", "16 x 16", "20 x 20", "24 x 24", "40 x 40", "6 x 12", "12 x 24" });
 			if (Environment.Is64BitProcess) ddlNewWorldSize.Items.AddRange(new object[] { "48 x 48", "64 x 64", "96 x 96" });
 			LoadWorlds();
-			var lastWorldIndex = ddlWorld.FindStringExact(Configuration.LastWorld);
+			var lastWorldIndex = ddlWorld.FindStringExact(Facade.Configuration.LastWorld);
 			ddlWorld.SelectedIndex = (lastWorldIndex < 0 ? 0 : lastWorldIndex); //if the previous world exists default selection to it, otherwise default to creating a new world
 			Misc.FillEnumDropDown(ddlNewWorldType, typeof(WorldType), null);
 			ddlNewWorldSize.SelectedIndex = ddlNewWorldSize.FindStringExact("12 x 12");
 
 			//video settings
-			cbVSync.Checked = Configuration.VSync;
-			cbMipmapping.Checked = Configuration.Mipmapping;
-			cbFog.Checked = Configuration.Fog;
-			cbLinearMagnificationFilter.Checked = Configuration.LinearMagnificationFilter;
-			cbSmoothLighting.Checked = Configuration.SmoothLighting;
-			cbWindowed.Checked = Configuration.Windowed;
+			cbVSync.Checked = Facade.Configuration.VSync;
+			cbMipmapping.Checked = Facade.Configuration.Mipmapping;
+			cbFog.Checked = Facade.Configuration.Fog;
+			cbLinearMagnificationFilter.Checked = Facade.Configuration.LinearMagnificationFilter;
+			cbSmoothLighting.Checked = Facade.Configuration.SmoothLighting;
+			cbWindowed.Checked = Facade.Configuration.Windowed;
 			Misc.FillEnumDropDown(ddlViewDistance, typeof(ViewDistance), ViewDistance.Standard.ToString());
-			var viewDistanceIndex = ddlViewDistance.FindStringExact(Configuration.ViewDistance.ToString());
+			var viewDistanceIndex = ddlViewDistance.FindStringExact(Facade.Configuration.ViewDistance.ToString());
 			ddlViewDistance.SelectedIndex = (viewDistanceIndex < 0 ? 0 : viewDistanceIndex);
 
 			//other settings
-			cbSoundEnabled.Checked = Configuration.SoundEnabled;
-			cbMusic.Checked = Configuration.MusicEnabled;
-			cbCreativeMode.Checked = Configuration.CreativeMode;
+			cbSoundEnabled.Checked = Facade.Configuration.SoundEnabled;
+			cbMusic.Checked = Facade.Configuration.MusicEnabled;
+			cbCreativeMode.Checked = Facade.Configuration.CreativeMode;
 		}
 
 		private void LoadWorlds()
@@ -214,7 +214,7 @@ namespace Hexpoint.Blox
 					Hide(); //need to hide the launcher rather then closing so that any errors can still display in a message box
 					Diagnostics.OutputDebugInfo(); //this only works after the game window has been initialized
 					game.Icon = Icon; //use this forms icon directly rather then from a resource file so the icon isnt in the output exe twice (reduces exe by 22k)
-					if (!Configuration.Windowed) game.WindowState = OpenTK.WindowState.Fullscreen; else if (Configuration.Maximized) game.WindowState = OpenTK.WindowState.Maximized;
+					if (!Facade.Configuration.Windowed) game.WindowState = OpenTK.WindowState.Fullscreen; else if (Facade.Configuration.Maximized) game.WindowState = OpenTK.WindowState.Maximized;
 					game.Run(Constants.UPDATES_PER_SECOND);
 				}
 			}
@@ -283,21 +283,21 @@ namespace Hexpoint.Blox
 
 		private void SaveConfig(ModeType mode)
 		{
-			Configuration.Mode = mode;
-			Configuration.UserName = txtUserName.Text.Trim();
-			Configuration.Server1 = ddlServerIp.Text;
-			Configuration.Port = ushort.Parse(txtPort.Text);
-			Configuration.LastWorld = ddlWorld.SelectedIndex == 0 ? txtNewWorldName.Text.Trim() : ddlWorld.SelectedItem.ToString();
-			Configuration.VSync = cbVSync.Checked;
-			Configuration.Mipmapping = cbMipmapping.Checked;
-			Configuration.Fog = cbFog.Checked;
-			Configuration.LinearMagnificationFilter = cbLinearMagnificationFilter.Checked;
-			Configuration.SmoothLighting = cbSmoothLighting.Checked;
-			Configuration.Windowed = cbWindowed.Checked;
-			Configuration.ViewDistance = (ViewDistance)Enum.Parse(typeof(ViewDistance), ddlViewDistance.SelectedItem.ToString());
-			Configuration.SoundEnabled = cbSoundEnabled.Checked;
-			Configuration.MusicEnabled = cbMusic.Checked;
-			Configuration.CreativeMode = cbCreativeMode.Checked && Configuration.IsSinglePlayer;
+			Facade.Configuration.Mode = mode;
+			Facade.Configuration.UserName = txtUserName.Text.Trim();
+			Facade.Configuration.Server = ddlServerIp.Text;
+			Facade.Configuration.Port = ushort.Parse(txtPort.Text);
+			Facade.Configuration.LastWorld = ddlWorld.SelectedIndex == 0 ? txtNewWorldName.Text.Trim() : ddlWorld.SelectedItem.ToString();
+			Facade.Configuration.VSync = cbVSync.Checked;
+			Facade.Configuration.Mipmapping = cbMipmapping.Checked;
+			Facade.Configuration.Fog = cbFog.Checked;
+			Facade.Configuration.LinearMagnificationFilter = cbLinearMagnificationFilter.Checked;
+			Facade.Configuration.SmoothLighting = cbSmoothLighting.Checked;
+			Facade.Configuration.Windowed = cbWindowed.Checked;
+			Facade.Configuration.ViewDistance = (ViewDistance)Enum.Parse(typeof(ViewDistance), ddlViewDistance.SelectedItem.ToString());
+			Facade.Configuration.SoundEnabled = cbSoundEnabled.Checked;
+			Facade.Configuration.MusicEnabled = cbMusic.Checked;
+			Facade.Configuration.CreativeMode = cbCreativeMode.Checked && Facade.Configuration.IsSinglePlayer;
 			Config.Save();
 		}
 
