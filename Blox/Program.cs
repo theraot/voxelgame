@@ -19,25 +19,40 @@ namespace Hexpoint.Blox
 			System.Threading.Thread.CurrentThread.Name = "Main Thread";
 
 			//remove the patcher here if we find it, this takes care of it whether launching a client or server
-			// ReSharper disable EmptyGeneralCatchClause
-			try { File.Delete("Patcher.exe"); } catch { } //if this hits an exception let the game run anyway, exception is NOT thrown if the file is not there, so not checking File.Exists avoids one roundtrip to the disk
-			// ReSharper restore EmptyGeneralCatchClause
+#pragma warning disable CC0004 // Catch block cannot be empty
+			try
+			{
+				File.Delete("Patcher.exe");
+			}
+			catch
+			{
+				// if this hits an exception let the game run anyway, exception is NOT thrown if the file is not there, so not checking File.Exists avoids one roundtrip to the disk
+			}
+#pragma warning restore CC0004 // Catch block cannot be empty
 
 			if (args.Length > 0 && args[0] == "server")
 			{
-				Application.Run(new Server.ServerConsole());
+				using (var serverConsole = new Server.ServerConsole())
+				{
+					Application.Run(serverConsole);
+				}
 			}
 			else
 			{
-				Application.Run(new Launcher());
+				using (var launcher = new Launcher())
+				{
+					Application.Run(launcher);
+				}
 			}
 		}
 
-		/// <summary>Log all unhandled exceptions from the client or server. Write them to ErrorLog.txt file. Exceptions handled in any way, ie: in the WinForms msgbox will not end up here, only exceptions that cause a hard crash.</summary>
 		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			var ex = e.ExceptionObject as Exception;
-			if (ex == null) return;
+			if (ex == null)
+			{
+				return;
+			}
 			using (var writer = new StreamWriter(Path.Combine(Application.StartupPath, "ErrorLog.txt")))
 			{
 				writer.WriteLine("Version: {0}", Application.ProductVersion);
