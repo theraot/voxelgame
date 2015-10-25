@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -21,19 +22,15 @@ namespace Hexpoint.Blox
 
 			RemovePatcher();
 
-			if (args.Length > 0 && args[0] == "server")
+			Facade.Initialize("Default.log");
+
+			try
 			{
-				using (var serverConsole = new Server.ServerConsole())
-				{
-					Application.Run(serverConsole);
-				}
+				Run(args);
 			}
-			else
+			catch (Exception exception)
 			{
-				using (var launcher = new Launcher())
-				{
-					Application.Run(launcher);
-				}
+				Facade.Logbook.ReportException(exception, true);
 			}
 		}
 
@@ -72,6 +69,29 @@ namespace Hexpoint.Blox
 				// if this hits an exception let the game run anyway, exception is NOT thrown if the file is not there, so not checking File.Exists avoids one roundtrip to the disk
 			}
 #pragma warning restore CC0004 // Catch block cannot be empty
+		}
+
+		private static void Run(string[] args)
+		{
+			if (args.Length > 0 && args[0] == "server")
+			{
+				using (var serverConsole = new Server.ServerConsole())
+				{
+					Application.Run(serverConsole);
+				}
+			}
+			else
+			{
+				using (var launcher = new Launcher())
+				{
+					Application.Run(launcher);
+				}
+			}
+			// TODO: save configuration
+
+			// Exit
+			// TODO: Localize text
+			Facade.Logbook.Trace(TraceEventType.Information, "Goodbye, see you soon.");
 		}
 	}
 }
