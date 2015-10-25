@@ -5,14 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blox", "Blox\Blox.csproj", "{2034CE24-87CE-4049-B4C6-4D18820D269D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{8BD4F026-5137-473A-8912-8A6B3EA02AD2}"
-	ProjectSection(SolutionItems) = preProject
-		SolutionItems\CubeCoords.png = SolutionItems\CubeCoords.png
-		SolutionItems\PatchNotes.htm = SolutionItems\PatchNotes.htm
-		SolutionItems\PublishSteps.txt = SolutionItems\PublishSteps.txt
-		SolutionItems\StandardResolutions.png = SolutionItems\StandardResolutions.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
