@@ -38,7 +38,6 @@
 			// 
 			// imgProgress
 			// 
-			this.imgProgress.Image = global::Hexpoint.Blox.Properties.Resources.Progress;
 			this.imgProgress.Location = new System.Drawing.Point(12, 9);
 			this.imgProgress.Name = "imgProgress";
 			this.imgProgress.Size = new System.Drawing.Size(32, 32);
