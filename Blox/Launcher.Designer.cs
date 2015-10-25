@@ -69,11 +69,9 @@
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.mnuCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mnuVisitWebSite = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnUpgradeAvailable = new System.Windows.Forms.Button();
 			this.cbMusic = new System.Windows.Forms.CheckBox();
 			this.gbNewWorld.SuspendLayout();
 			this.gbVideo.SuspendLayout();
@@ -529,20 +527,12 @@
 			// helpToolStripMenuItem
 			// 
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuCheckForUpdates,
             this.toolStripMenuItem1,
             this.mnuVisitWebSite,
             this.mnuAbout});
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.helpToolStripMenuItem.Text = "Help";
-			// 
-			// mnuCheckForUpdates
-			// 
-			this.mnuCheckForUpdates.Name = "mnuCheckForUpdates";
-			this.mnuCheckForUpdates.Size = new System.Drawing.Size(171, 22);
-			this.mnuCheckForUpdates.Text = "Check for Updates";
-			this.mnuCheckForUpdates.Click += new System.EventHandler(this.mnuCheckForUpdates_Click);
 			// 
 			// toolStripMenuItem1
 			// 
@@ -562,20 +552,6 @@
 			this.mnuAbout.Size = new System.Drawing.Size(171, 22);
 			this.mnuAbout.Text = "About";
 			this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
-			// 
-			// btnUpgradeAvailable
-			// 
-			this.btnUpgradeAvailable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-			this.btnUpgradeAvailable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnUpgradeAvailable.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnUpgradeAvailable.Location = new System.Drawing.Point(432, 4);
-			this.btnUpgradeAvailable.Name = "btnUpgradeAvailable";
-			this.btnUpgradeAvailable.Size = new System.Drawing.Size(108, 21);
-			this.btnUpgradeAvailable.TabIndex = 62;
-			this.btnUpgradeAvailable.Text = "Upgrade Available";
-			this.btnUpgradeAvailable.UseVisualStyleBackColor = false;
-			this.btnUpgradeAvailable.Visible = false;
-			this.btnUpgradeAvailable.Click += new System.EventHandler(this.mnuCheckForUpdates_Click);
 			// 
 			// cbMusic
 			// 
@@ -599,7 +575,6 @@
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.ClientSize = new System.Drawing.Size(552, 260);
 			this.Controls.Add(this.cbMusic);
-			this.Controls.Add(this.btnUpgradeAvailable);
 			this.Controls.Add(this.txtProgress);
 			this.Controls.Add(this.pbProgress);
 			this.Controls.Add(this.txtPort);
@@ -678,11 +653,9 @@
 		private System.Windows.Forms.ToolStripMenuItem mnuLaunchServer;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem mnuCheckForUpdates;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem mnuVisitWebSite;
 		private System.Windows.Forms.ToolStripMenuItem mnuAbout;
-		private System.Windows.Forms.Button btnUpgradeAvailable;
 		private System.Windows.Forms.CheckBox cbMusic;
 	}
 }

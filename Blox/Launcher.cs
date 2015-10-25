@@ -346,11 +346,6 @@ namespace Hexpoint.Blox
 			Application.Exit();
 		}
 
-		private void mnuCheckForUpdates_Click(object sender, EventArgs e)
-		{
-			new CheckForUpdates().ShowDialog(); //modal
-		}
-
 		private void mnuVisitWebSite_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start(Constants.URL);

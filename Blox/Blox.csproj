@@ -132,12 +132,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckForUpdates.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CheckForUpdates.Designer.cs">
-      <DependentUpon>CheckForUpdates.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Facade.cs" />
@@ -271,9 +265,6 @@
     <Compile Include="Utilities\GlHelper.cs" />
     <Compile Include="Utilities\Misc.cs" />
     <Compile Include="Hosts\PerformanceHost.cs" />
-    <EmbeddedResource Include="CheckForUpdates.resx">
-      <DependentUpon>CheckForUpdates.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
