@@ -19,7 +19,6 @@ namespace Hexpoint.Blox
 
 		private void Launcher_Load(object sender, EventArgs e)
 		{
-			Config.Load();
 			Text = string.Format("{0} {1}", Application.ProductName, Settings.VersionDisplay);
 			ddlServerIp.Items.AddRange(new object[] { "127.0.0.1 (localhost)", "hornet.voxelgame.com" });
 #if DEBUG
@@ -70,7 +69,7 @@ namespace Hexpoint.Blox
 		{
 			ddlWorld.Items.Clear();
 			ddlWorld.Items.Add("<<Create New World>>");
-			foreach (var fi in Config.SaveDirectory.GetFiles(string.Format("*{0}", Constants.WORLD_FILE_EXTENSION))) ddlWorld.Items.Add(fi.Name.Replace(Constants.WORLD_FILE_EXTENSION, "")); //create list items for all files with the proper extension
+			foreach (var fi in Facade.SaveDirectory.GetFiles(string.Format("*{0}", Constants.WORLD_FILE_EXTENSION))) ddlWorld.Items.Add(fi.Name.Replace(Constants.WORLD_FILE_EXTENSION, "")); //create list items for all files with the proper extension
 		}
 
 		private void GameMode_Changed(object sender, EventArgs e)
@@ -114,7 +113,7 @@ namespace Hexpoint.Blox
 				string newWorldName = txtNewWorldName.Text.Trim();
 				if (newWorldName.Length == 0) { Misc.MessageError("World name is required to create a new world."); return false; }
 				if (System.IO.Path.GetInvalidFileNameChars().Any(c => newWorldName.Contains(c.ToString()))) { Misc.MessageError("World name contains an invalid character."); return false; }
-				if (Config.SaveDirectory.GetFiles(string.Format("{0}{1}", newWorldName, Constants.WORLD_FILE_EXTENSION)).Length > 0) { Misc.MessageError("World name already exists. A unique name is required."); return false; }
+				if (Facade.SaveDirectory.GetFiles(string.Format("{0}{1}", newWorldName, Constants.WORLD_FILE_EXTENSION)).Length > 0) { Misc.MessageError("World name already exists. A unique name is required."); return false; }
 
 				Settings.WorldFilePath = newWorldName;
 				WorldData.WorldType = (WorldType)Enum.Parse(typeof(WorldType), ddlNewWorldType.SelectedItem.ToString());
@@ -298,7 +297,7 @@ namespace Hexpoint.Blox
 			Facade.Configuration.SoundEnabled = cbSoundEnabled.Checked;
 			Facade.Configuration.MusicEnabled = cbMusic.Checked;
 			Facade.Configuration.CreativeMode = cbCreativeMode.Checked && Facade.Configuration.IsSinglePlayer;
-			Config.Save();
+			Facade.SaveConfiguration();
 		}
 
 		internal void UpdateProgressInvokable(string message, int currentProgress, int maxProgress)

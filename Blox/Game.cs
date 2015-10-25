@@ -141,17 +141,17 @@ namespace Hexpoint.Blox
 			{
 				case WindowState.Fullscreen:
 					Facade.Configuration.Windowed = false;
-					Config.Save();
+					Facade.SaveConfiguration();
 					break;
 				case WindowState.Maximized:
 					Facade.Configuration.Windowed = true;
 					Facade.Configuration.Maximized = true;
-					Config.Save();
+					Facade.SaveConfiguration();
 					break;
 				case WindowState.Normal:
 					Facade.Configuration.Windowed = true;
 					Facade.Configuration.Maximized = false;
-					Config.Save();
+					Facade.SaveConfiguration();
 					break;
 			}
 		}

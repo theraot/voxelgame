@@ -19,7 +19,7 @@ namespace Hexpoint.Blox.Utilities
 		internal static void ChangeViewDistance(ViewDistance vd)
 		{
 			Facade.Configuration.ViewDistance = vd;
-			Config.Save();
+			Facade.SaveConfiguration();
 			Settings.Game.CalculateProjectionMatrix();
 			if (!Game.Player.EyesUnderWater) SetFogParameters(); //only modify fog distance when players eyes arent under water, otherwise the fog will get updated when they surface
 		}

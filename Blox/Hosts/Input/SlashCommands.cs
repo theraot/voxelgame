@@ -144,14 +144,14 @@ namespace Hexpoint.Blox.Hosts.Input
 							if (!Facade.Configuration.MusicEnabled)
 							{
 								Facade.Configuration.MusicEnabled = true;
-								Config.Save();
+								Facade.SaveConfiguration();
 								Sounds.Music.StartMusic();
 							}
 							AddSlashResult("Music enabled.");
 							return;
 						case "off":
 							Facade.Configuration.MusicEnabled = false;
-							Config.Save();
+							Facade.SaveConfiguration();
 							Sounds.Music.StopMusic();
 							AddSlashResult("Music disabled.");
 							return;
@@ -390,7 +390,7 @@ namespace Hexpoint.Blox.Hosts.Input
 				case "xmldump":
 					if (!Facade.Configuration.CreativeMode) { AddSlashResult("Must be in Creative Mode."); return; }
 					var xml = WorldSettings.GetXmlByteArray();
-					using (var file = new FileStream(Path.Combine(Config.SaveDirectory.FullName, Settings.WorldName) + ".xml", FileMode.Create))
+					using (var file = new FileStream(Path.Combine(Facade.SaveDirectory.FullName, Settings.WorldName) + ".xml", FileMode.Create))
 					{
 						file.Write(xml, 0, xml.Length);
 						AddSlashResult("Dumped XML to " + file.Name);

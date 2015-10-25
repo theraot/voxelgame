@@ -49,7 +49,7 @@ namespace Hexpoint.Blox.Sounds
 				//if we cant create an audio context then disable sounds in the config and return
 				Debug.WriteLine("Error creating Audio Context: " + ex.Message);
 				Facade.Configuration.SoundEnabled = false;
-				Config.Save();
+				Facade.SaveConfiguration();
 				return;
 			}
 

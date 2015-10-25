@@ -23,7 +23,6 @@ namespace Hexpoint.Blox.Server
 		{
 			try
 			{
-				Config.Load(); //config needs to be loaded because the server console starts in a new process
 				Facade.Configuration.Mode = ModeType.StandaloneServer; //this would have been saved in the config coming from the launcher, but needs to be set here in case were launching a server in debug or from the command line
 				Settings.WorldFilePath = Facade.Configuration.LastWorld; //todo: should be better way to set this, its set here and in the launcher
 				Controller.Launch(this);
@@ -182,7 +181,7 @@ namespace Hexpoint.Blox.Server
 		{
 			txtMotd.Text = txtMotd.Text.Trim();
 			Facade.Configuration.MOTD = txtMotd.Text;
-			Config.Save();
+			Facade.SaveConfiguration();
 			ServerMsg.Broadcast(txtMotd.Text);
 			UpdateLog(string.Format("[SERVER] {0}", txtMotd.Text));
 		}

@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Security;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using OpenTK;
 
 namespace Hexpoint.Blox
 {
@@ -14,6 +16,7 @@ namespace Hexpoint.Blox
 	/// </summary>
 	public static class Facade
 	{
+		internal static DirectoryInfo SaveDirectory;
 		private const int INT_Initialized = 2;
 		private const int INT_Initializing = 1;
 		private const int INT_NotInitialized = 0;
@@ -63,6 +66,33 @@ namespace Hexpoint.Blox
 			}
 		}
 
+		public static void SaveConfiguration()
+		{
+			try
+
+			{
+				var assembly = Assembly.GetCallingAssembly();
+				Logbook.Trace
+				(
+					TraceEventType.Information,
+					"Requested to write configuration for {0}",
+					assembly.GetName().Name
+				);
+				var str = JsonConvert.SerializeObject(Configuration);
+				// Will try to write:
+				// - ~\Config\AssemblyName.json
+				// - %AppData%\InternalName\Config\AssemblyName.json
+				using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(str)))
+				{
+					Resources.Write(assembly, "Config", ".json", stream);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Error saving config: " + ex.Message);
+			}
+		}
+
 		[SecuritySafeCritical]
 		private static void InitializeExtracted(string logFile)
 		{
@@ -105,15 +135,17 @@ namespace Hexpoint.Blox
 			DebugMode = false;
 			SetDebugMode();
 
-			// TODO load Facade.Configuration
-
-			Configuration = new Configuration();
-
 			// *********************************
 			// Creating LogBook
 			// *********************************
 
 			Logbook = Logbook.Create(DebugMode ? SourceLevels.All : SourceLevels.Information, true, logFile);
+
+			// *********************************
+			// Load Configuration
+			// *********************************
+
+			LoadConfiguration();
 
 			// *********************************
 			// Reporting
@@ -132,6 +164,38 @@ namespace Hexpoint.Blox
 
 			// TODO localization
 		}
+
+		private static void LoadConfiguration()
+		{
+			var assembly = Assembly.GetCallingAssembly();
+			Logbook.Trace
+				(
+				TraceEventType.Information,
+				"Requested to read configuration for {0}",
+				assembly.GetName().Name
+			);
+			// Will try to read:
+			// - ~\Config\AssemblyName.json
+			// - %AppData%\InternalName\Config\AssemblyName.json
+			// - Assembly!Namespace.Config.default.json
+
+			var stream = Resources.Read(assembly, @".json", new[] { "Config" }, "default.json");
+			if (stream != null)
+			{
+				using (var reader = new StreamReader(stream, Encoding.UTF8))
+				{
+					var str = reader.ReadToEnd();
+					Configuration = JsonConvert.DeserializeObject<Configuration>(str);
+				}
+			}
+
+			Settings.Version = new Version(Application.ProductVersion);
+
+			const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
+			SaveDirectory = new DirectoryInfo(Path.Combine(Folder.FullName, SAVE_FILE_FOLDER_NAME));
+			if (!SaveDirectory.Exists) SaveDirectory = Folder.CreateSubdirectory(SAVE_FILE_FOLDER_NAME);
+		}
+
 		[Conditional("DEBUG")]
 		private static void SetDebugMode()
 		{

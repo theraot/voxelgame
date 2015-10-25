@@ -99,7 +99,7 @@ namespace Hexpoint.Blox
 			get { return _worldFilePath; }
 			set
 			{
-				_worldFilePath = String.Format("{0}{1}{2}{3}", Config.SaveDirectory.FullName, System.IO.Path.DirectorySeparatorChar, value, Constants.WORLD_FILE_EXTENSION); //use System.IO.Path.DirectorySeparatorChar to play nice with linux
+				_worldFilePath = String.Format("{0}{1}{2}{3}", Facade.SaveDirectory.FullName, System.IO.Path.DirectorySeparatorChar, value, Constants.WORLD_FILE_EXTENSION); //use System.IO.Path.DirectorySeparatorChar to play nice with linux
 				WorldFileTempPath = String.Format("{0}.temp", _worldFilePath);
 			}
 		}
