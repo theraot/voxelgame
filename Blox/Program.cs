@@ -7,6 +7,53 @@ namespace Hexpoint.Blox
 {
 	static class Program
 	{
+		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
+		{
+			var exception = eventArgs.ExceptionObject as Exception;
+			if (exception != null)
+			{
+				var current = exception;
+				do
+				{
+					Facade.Logbook.Trace
+					(
+						TraceEventType.Critical,
+						" == Unhandled Exception == \n\n{0} ocurred. \n\n == Exception Report == \n\n{1}\n\n == Source == \n\n{2}\n\n == AppDomain == \n\n{3}\n\n == Stacktrace == \n\n{4}\n",
+						current.GetType().Name,
+						current.Message,
+						current.Source,
+						AppDomain.CurrentDomain.FriendlyName,
+						current.StackTrace
+					);
+					current = current.InnerException;
+				} while (current != null);
+				var extendedStackTrace = Environment.StackTrace.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+				Facade.Logbook.Trace(TraceEventType.Error, " == Extended StackTrace == \n\n{0}\n\n", string.Join("\r\n", extendedStackTrace, 4, extendedStackTrace.Length - 4));
+			}
+			else if (eventArgs.ExceptionObject != null)
+			{
+				Facade.Logbook.Trace
+				(
+					TraceEventType.Critical,
+					" == Unhandled Exception == "
+				);
+				Facade.Logbook.Trace
+				(
+					TraceEventType.Critical,
+					eventArgs.ExceptionObject.ToString()
+				);
+			}
+			else
+			{
+				Facade.Logbook.Trace
+				(
+					TraceEventType.Critical,
+					" == Unhandled Exception == "
+				);
+			}
+			Application.Exit();
+		}
+
 		[STAThread]
 		static void Main(string[] args)
 		{
@@ -33,29 +80,6 @@ namespace Hexpoint.Blox
 				Facade.Logbook.ReportException(exception, true);
 			}
 		}
-
-		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-		{
-			var ex = e.ExceptionObject as Exception;
-			if (ex == null)
-			{
-				return;
-			}
-			using (var writer = new StreamWriter(Path.Combine(Application.StartupPath, "ErrorLog.txt")))
-			{
-				writer.WriteLine("Version: {0}", Application.ProductVersion);
-				writer.WriteLine("Date: {0:yyyy-MM-dd hh:mm:ss tt}", DateTime.Now);
-				writer.WriteLine("Exception: {0}", ex.Message);
-				writer.WriteLine(ex.StackTrace); //write stack trace in release mode as a convenience for us, it will be obfuscated anyway in published versions and line numbers arent included without the pdb
-				if (ex.InnerException != null)
-				{
-					writer.WriteLine("Inner Exception: {0}", ex.InnerException.Message);
-					writer.WriteLine(ex.InnerException.StackTrace); //write stack trace in release mode as a convenience for us, it will be obfuscated anyway in published versions and line numbers arent included without the pdb					
-				}
-			}
-			Application.Exit();
-		}
-
 		private static void RemovePatcher()
 		{
 			// Remove the patcher here if we find it, this takes care of it whether launching a client or server
