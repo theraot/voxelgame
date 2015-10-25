@@ -44,7 +44,7 @@ namespace Hexpoint.Blox.GameActions
 				Reason = Encoding.ASCII.GetString(bytes, sizeof(int), 30).TrimEnd();
 			}
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				Server.NetworkPlayer removedPlayer;
 				Server.Controller.Players.TryRemove(ConnectedPlayer.Id, out removedPlayer);

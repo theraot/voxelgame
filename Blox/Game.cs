@@ -18,7 +18,7 @@ namespace Hexpoint.Blox
 	{
 		#region Constructors
 		//gm: from the OpenTK source code (Graphics\GraphicsMode.cs), here is GraphicsMode.Default, it does seem to select sensible choices -> default display bpp, 16 bit depth buffer, 0 bit stencil buffer, 2 buffers
-		public Game() : base(Constants.DEFAULT_GAME_WIDTH, Constants.DEFAULT_GAME_HEIGHT, GraphicsMode.Default, string.Format("Voxel Game {0}: {1}", Settings.VersionDisplay, Config.UserName))
+		public Game() : base(Constants.DEFAULT_GAME_WIDTH, Constants.DEFAULT_GAME_HEIGHT, GraphicsMode.Default, string.Format("Voxel Game {0}: {1}", Settings.VersionDisplay, Configuration.UserName))
 		{
 			//note: cant easily thread these loading tasks because they all need to run on the thread that creates the GL context
 			Settings.Game = this;
@@ -35,13 +35,13 @@ namespace Hexpoint.Blox
 			DisplayList.LoadDisplayLists(); //ensure display lists are loaded before they are needed
 			Debug.WriteLine("Display Lists load time: {0}ms", stopwatch.ElapsedMilliseconds);
 
-			VSync = Config.VSync ? VSyncMode.On : VSyncMode.Off;
+			VSync = Configuration.VSync ? VSyncMode.On : VSyncMode.Off;
 		
-			if (Config.IsSinglePlayer)
+			if (Configuration.IsSinglePlayer)
 			{
 				var playerCoords = new Coords(WorldData.SizeInBlocksX / 2f, 0, WorldData.SizeInBlocksZ / 2f); //start player in center of world
 				playerCoords.Yf = WorldData.Chunks[playerCoords].HeightMap[playerCoords.Xblock % Chunk.CHUNK_SIZE, playerCoords.Zblock % Chunk.CHUNK_SIZE] + 1; //start player on block above the surface
-				Player = new Player(0, Config.UserName, playerCoords);
+				Player = new Player(0, Configuration.UserName, playerCoords);
 				NetworkClient.Players.TryAdd(Player.Id, Player); //note: it is not possible for the add to fail on ConcurrentDictionary, see: http://www.albahari.com/threading/part5.aspx#_Concurrent_Collections
 			}
 		}
@@ -97,7 +97,7 @@ namespace Hexpoint.Blox
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.PolygonOffset(-1f, -90f); //used by the block cursor, negatives pull polygons closer to the camera
 
-			if (Config.Fog)
+			if (Configuration.Fog)
 			{
 				GL.Enable(EnableCap.Fog);
 				Misc.SetFogParameters();
@@ -140,17 +140,17 @@ namespace Hexpoint.Blox
 			switch (WindowState)
 			{
 				case WindowState.Fullscreen:
-					Config.Windowed = false;
+					Configuration.Windowed = false;
 					Config.Save();
 					break;
 				case WindowState.Maximized:
-					Config.Windowed = true;
-					Config.Maximized = true;
+					Configuration.Windowed = true;
+					Configuration.Maximized = true;
 					Config.Save();
 					break;
 				case WindowState.Normal:
-					Config.Windowed = true;
-					Config.Maximized = false;
+					Configuration.Windowed = true;
+					Configuration.Maximized = false;
 					Config.Save();
 					break;
 			}
@@ -211,7 +211,7 @@ namespace Hexpoint.Blox
 
 		protected override void OnUnload(EventArgs e)
 		{
-			if (!Config.IsSinglePlayer) NetworkClient.Disconnect();
+			if (!Configuration.IsSinglePlayer) NetworkClient.Disconnect();
 			foreach (var host in _hosts) host.Dispose();
 			Sounds.Audio.Dispose();
 			DisplayList.DeleteDisplayLists();

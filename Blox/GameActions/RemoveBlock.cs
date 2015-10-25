@@ -32,7 +32,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -47,7 +47,7 @@ namespace Hexpoint.Blox.GameActions
 
 			//if destroying a block, create an item
 			BlockItem newBlockItem = null;
-			if ((Config.IsSinglePlayer && !Config.CreativeMode) || (Config.IsServer && !ConnectedPlayer.IsCreative))
+			if ((Configuration.IsSinglePlayer && !Configuration.CreativeMode) || (Configuration.IsServer && !ConnectedPlayer.IsCreative))
 			{
 				if (!existingBlock.IsTransparent)
 				{
@@ -56,7 +56,7 @@ namespace Hexpoint.Blox.GameActions
 				}
 			}
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

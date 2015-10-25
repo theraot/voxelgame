@@ -50,7 +50,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{

@@ -135,6 +135,7 @@
       <DependentUpon>CheckForUpdates.cs</DependentUpon>
     </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Facade.cs" />
     <Compile Include="Hosts\BlockCursorHost.cs" />

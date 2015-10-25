@@ -24,8 +24,8 @@ namespace Hexpoint.Blox.Server
 			try
 			{
 				Config.Load(); //config needs to be loaded because the server console starts in a new process
-				Config.Mode = ModeType.StandaloneServer; //this would have been saved in the config coming from the launcher, but needs to be set here in case were launching a server in debug or from the command line
-				Settings.WorldFilePath = Config.LastWorld; //todo: should be better way to set this, its set here and in the launcher
+				Configuration.Mode = ModeType.StandaloneServer; //this would have been saved in the config coming from the launcher, but needs to be set here in case were launching a server in debug or from the command line
+				Settings.WorldFilePath = Configuration.LastWorld; //todo: should be better way to set this, its set here and in the launcher
 				Controller.Launch(this);
 			}
 			catch (Exception ex)
@@ -52,7 +52,7 @@ namespace Hexpoint.Blox.Server
 			_dtPlayers.Columns.Add("Memory", typeof(short));
 
 			//settings tab
-			txtMotd.Text = Config.MOTD;
+			txtMotd.Text = Configuration.MOTD;
 			txtAdminPassword.Text = Controller.AdminPassword;
 
 			//tools tab
@@ -181,7 +181,7 @@ namespace Hexpoint.Blox.Server
 		private void btnMotdUpdate_Click(object sender, EventArgs e)
 		{
 			txtMotd.Text = txtMotd.Text.Trim();
-			Config.MOTD = txtMotd.Text;
+			Configuration.MOTD = txtMotd.Text;
 			Config.Save();
 			ServerMsg.Broadcast(txtMotd.Text);
 			UpdateLog(string.Format("[SERVER] {0}", txtMotd.Text));

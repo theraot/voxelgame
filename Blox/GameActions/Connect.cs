@@ -55,7 +55,7 @@ namespace Hexpoint.Blox.GameActions
 				Coords = new Coords(bytes, sizeof(int) + 16 + 20);
 			}
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				if (Server.Controller.HasServerConsole) System.Media.SystemSounds.Exclamation.Play();
 			}
@@ -73,7 +73,7 @@ namespace Hexpoint.Blox.GameActions
 
 		public void AcceptNewConnection(TcpClient client)
 		{
-			if (!Config.IsServer) throw new Exception("Only the server needs this.");
+			if (!Configuration.IsServer) throw new Exception("Only the server needs this.");
 
 			TcpClient = client;
 			var networkStream = client.GetStream();

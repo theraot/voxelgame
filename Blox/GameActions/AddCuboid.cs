@@ -37,7 +37,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -51,7 +51,7 @@ namespace Hexpoint.Blox.GameActions
 
 			WorldData.PlaceCuboid(Position1, Position2, BlockType);
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

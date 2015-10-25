@@ -16,7 +16,7 @@ namespace Hexpoint.Blox.GameActions
 
 		protected override void Queue()
 		{
-			if (!Config.IsServer) throw new Exception("Only the server needs this");
+			if (!Configuration.IsServer) throw new Exception("Only the server needs this");
 			Immediate = true;
 
 			//bm: this does not need to be locked. locking it prevents other actions from being queued, in turn locking other Players' threads and stalling new connections

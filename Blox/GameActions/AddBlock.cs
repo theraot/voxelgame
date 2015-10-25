@@ -35,7 +35,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -48,7 +48,7 @@ namespace Hexpoint.Blox.GameActions
 
 			WorldData.PlaceBlock(Position, BlockType);
 			
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				//bm: this has to wait until the server can manage who's in creative mode
 				//if (ConnectedPlayer.Inventory[(int)BlockType] <= 0) return;

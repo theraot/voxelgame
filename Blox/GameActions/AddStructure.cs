@@ -73,7 +73,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -101,7 +101,7 @@ namespace Hexpoint.Blox.GameActions
 					break;
 			}
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				foreach (var player in Controller.Players.Values)
 				{

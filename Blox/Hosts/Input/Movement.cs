@@ -16,7 +16,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			{
 				distance *= 0.5; //50% move speed when under water
 			}
-			else if (InputHost.IsFloating && !Config.CreativeMode)
+			else if (InputHost.IsFloating && !Configuration.CreativeMode)
 			{
 				//if the player isnt in creative mode AND is floating AND is not under water; it probably means they walked out of a waterfall and floating should be cancelled
 				InputHost.IsFloating = false;

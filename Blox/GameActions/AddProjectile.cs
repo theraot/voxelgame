@@ -45,7 +45,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -63,7 +63,7 @@ namespace Hexpoint.Blox.GameActions
 
 			var newProjectile = new Projectile(ref Coords, BlockType, AllowBounce, Velocity, GameObjectId);
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{

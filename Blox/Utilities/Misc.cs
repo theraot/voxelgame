@@ -18,7 +18,7 @@ namespace Hexpoint.Blox.Utilities
 		//-this is only needed for dynamically changing the view distance after the game is already running
 		internal static void ChangeViewDistance(ViewDistance vd)
 		{
-			Config.ViewDistance = vd;
+			Configuration.ViewDistance = vd;
 			Config.Save();
 			Settings.Game.CalculateProjectionMatrix();
 			if (!Game.Player.EyesUnderWater) SetFogParameters(); //only modify fog distance when players eyes arent under water, otherwise the fog will get updated when they surface

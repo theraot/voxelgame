@@ -34,7 +34,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -45,7 +45,7 @@ namespace Hexpoint.Blox.GameActions
 				}
 			}
 
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				Server.Controller.Players[PlayerId].Coords = Coords;
 				foreach (var player in Server.Controller.Players.Values)
@@ -59,7 +59,7 @@ namespace Hexpoint.Blox.GameActions
 					new PlayerMove(Coords, PlayerId) { ConnectedPlayer = player }.Send();
 				}
 			}
-			else if (!Config.IsSinglePlayer) //this is a network client
+			else if (!Configuration.IsSinglePlayer) //this is a network client
 			{
 				//gm: this assignment will be roughly 3x slower for ConcurrentDictionary, however is worth it for simpler code, less bugs and some performance gains for not having to lock while iterating
 				//see: http://www.albahari.com/threading/part5.aspx#_Concurrent_Collections

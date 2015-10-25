@@ -31,39 +31,39 @@ namespace Hexpoint.Blox
 			CheckForUpdates.BeginGetNewestVersionNumber(task => { if (!task.IsFaulted && CheckForUpdates.IsNewerVersion(new Version(task.Result))) btnUpgradeAvailable.Visible = true; });
 #endif
 
-			if (Config.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
+			if (Configuration.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
 			GameMode_Changed(null, null);
-			txtUserName.Text = Config.UserName.Length == 0 ? Environment.MachineName : Config.UserName;
+			txtUserName.Text = Configuration.UserName.Length == 0 ? Environment.MachineName : Configuration.UserName;
 
 			//server settings
-			var serverIndex = ddlServerIp.FindStringExact(Config.Server, 0);
+			var serverIndex = ddlServerIp.FindStringExact(Configuration.Server1, 0);
 			ddlServerIp.SelectedIndex = (serverIndex < 0 ? 0 : serverIndex);
-			txtPort.Text = Config.Port.ToString();
+			txtPort.Text = Configuration.Port.ToString();
 
 			//world settings
 			ddlNewWorldSize.Items.AddRange(new object[] { "4 x 4", "6 x 6", "8 x 8", "12 x 12", "16 x 16", "20 x 20", "24 x 24", "40 x 40", "6 x 12", "12 x 24" });
 			if (Environment.Is64BitProcess) ddlNewWorldSize.Items.AddRange(new object[] { "48 x 48", "64 x 64", "96 x 96" });
 			LoadWorlds();
-			var lastWorldIndex = ddlWorld.FindStringExact(Config.LastWorld);
+			var lastWorldIndex = ddlWorld.FindStringExact(Configuration.LastWorld);
 			ddlWorld.SelectedIndex = (lastWorldIndex < 0 ? 0 : lastWorldIndex); //if the previous world exists default selection to it, otherwise default to creating a new world
 			Misc.FillEnumDropDown(ddlNewWorldType, typeof(WorldType), null);
 			ddlNewWorldSize.SelectedIndex = ddlNewWorldSize.FindStringExact("12 x 12");
 
 			//video settings
-			cbVSync.Checked = Config.VSync;
-			cbMipmapping.Checked = Config.Mipmapping;
-			cbFog.Checked = Config.Fog;
-			cbLinearMagnificationFilter.Checked = Config.LinearMagnificationFilter;
-			cbSmoothLighting.Checked = Config.SmoothLighting;
-			cbWindowed.Checked = Config.Windowed;
+			cbVSync.Checked = Configuration.VSync;
+			cbMipmapping.Checked = Configuration.Mipmapping;
+			cbFog.Checked = Configuration.Fog;
+			cbLinearMagnificationFilter.Checked = Configuration.LinearMagnificationFilter;
+			cbSmoothLighting.Checked = Configuration.SmoothLighting;
+			cbWindowed.Checked = Configuration.Windowed;
 			Misc.FillEnumDropDown(ddlViewDistance, typeof(ViewDistance), ViewDistance.Standard.ToString());
-			var viewDistanceIndex = ddlViewDistance.FindStringExact(Config.ViewDistance.ToString());
+			var viewDistanceIndex = ddlViewDistance.FindStringExact(Configuration.ViewDistance.ToString());
 			ddlViewDistance.SelectedIndex = (viewDistanceIndex < 0 ? 0 : viewDistanceIndex);
 
 			//other settings
-			cbSoundEnabled.Checked = Config.SoundEnabled;
-			cbMusic.Checked = Config.MusicEnabled;
-			cbCreativeMode.Checked = Config.CreativeMode;
+			cbSoundEnabled.Checked = Configuration.SoundEnabled;
+			cbMusic.Checked = Configuration.MusicEnabled;
+			cbCreativeMode.Checked = Configuration.CreativeMode;
 		}
 
 		private void LoadWorlds()
@@ -214,7 +214,7 @@ namespace Hexpoint.Blox
 					Hide(); //need to hide the launcher rather then closing so that any errors can still display in a message box
 					Diagnostics.OutputDebugInfo(); //this only works after the game window has been initialized
 					game.Icon = Icon; //use this forms icon directly rather then from a resource file so the icon isnt in the output exe twice (reduces exe by 22k)
-					if (!Config.Windowed) game.WindowState = OpenTK.WindowState.Fullscreen; else if (Config.Maximized) game.WindowState = OpenTK.WindowState.Maximized;
+					if (!Configuration.Windowed) game.WindowState = OpenTK.WindowState.Fullscreen; else if (Configuration.Maximized) game.WindowState = OpenTK.WindowState.Maximized;
 					game.Run(Constants.UPDATES_PER_SECOND);
 				}
 			}
@@ -283,21 +283,21 @@ namespace Hexpoint.Blox
 
 		private void SaveConfig(ModeType mode)
 		{
-			Config.Mode = mode;
-			Config.UserName = txtUserName.Text.Trim();
-			Config.Server = ddlServerIp.Text;
-			Config.Port = ushort.Parse(txtPort.Text);
-			Config.LastWorld = ddlWorld.SelectedIndex == 0 ? txtNewWorldName.Text.Trim() : ddlWorld.SelectedItem.ToString();
-			Config.VSync = cbVSync.Checked;
-			Config.Mipmapping = cbMipmapping.Checked;
-			Config.Fog = cbFog.Checked;
-			Config.LinearMagnificationFilter = cbLinearMagnificationFilter.Checked;
-			Config.SmoothLighting = cbSmoothLighting.Checked;
-			Config.Windowed = cbWindowed.Checked;
-			Config.ViewDistance = (ViewDistance)Enum.Parse(typeof(ViewDistance), ddlViewDistance.SelectedItem.ToString());
-			Config.SoundEnabled = cbSoundEnabled.Checked;
-			Config.MusicEnabled = cbMusic.Checked;
-			Config.CreativeMode = cbCreativeMode.Checked && Config.IsSinglePlayer;
+			Configuration.Mode = mode;
+			Configuration.UserName = txtUserName.Text.Trim();
+			Configuration.Server1 = ddlServerIp.Text;
+			Configuration.Port = ushort.Parse(txtPort.Text);
+			Configuration.LastWorld = ddlWorld.SelectedIndex == 0 ? txtNewWorldName.Text.Trim() : ddlWorld.SelectedItem.ToString();
+			Configuration.VSync = cbVSync.Checked;
+			Configuration.Mipmapping = cbMipmapping.Checked;
+			Configuration.Fog = cbFog.Checked;
+			Configuration.LinearMagnificationFilter = cbLinearMagnificationFilter.Checked;
+			Configuration.SmoothLighting = cbSmoothLighting.Checked;
+			Configuration.Windowed = cbWindowed.Checked;
+			Configuration.ViewDistance = (ViewDistance)Enum.Parse(typeof(ViewDistance), ddlViewDistance.SelectedItem.ToString());
+			Configuration.SoundEnabled = cbSoundEnabled.Checked;
+			Configuration.MusicEnabled = cbMusic.Checked;
+			Configuration.CreativeMode = cbCreativeMode.Checked && Configuration.IsSinglePlayer;
 			Config.Save();
 		}
 

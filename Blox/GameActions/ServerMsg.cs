@@ -34,7 +34,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsSinglePlayer)
+			if (!Configuration.IsSinglePlayer)
 			{
 				lock (TcpClient)
 				{
@@ -51,7 +51,7 @@ namespace Hexpoint.Blox.GameActions
 		/// <summary>Broadcast message from server to all connected players.</summary>
 		public static void Broadcast(string message)
 		{
-			if (Config.IsServer)
+			if (Configuration.IsServer)
 			{
 				foreach (var player in Server.Controller.Players.Values)
 				{
@@ -59,7 +59,7 @@ namespace Hexpoint.Blox.GameActions
 					new ServerMsg(message, player).Send();
 				}
 			}
-			else if (Config.IsSinglePlayer)
+			else if (Configuration.IsSinglePlayer)
 			{
 				//todo: is this still applicable?
 				//you wouldnt think a single player could broadcast a server message, but one time this happens is the "World saved" message

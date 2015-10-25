@@ -36,7 +36,7 @@ namespace Hexpoint.Blox.GameActions
 
 		internal override void Receive()
 		{
-			if (!Config.IsServer) throw new Exception("PlayerInfo action should only be received by a server.");
+			if (!Configuration.IsServer) throw new Exception("PlayerInfo action should only be received by a server.");
 
 			lock (TcpClient)
 			{
