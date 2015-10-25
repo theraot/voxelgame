@@ -143,7 +143,7 @@ namespace Hexpoint.Blox.Hosts.Ui
 					case ToolType.Default:
 						button.Texture = TextureLoader.GetUiTexture(UiTextureType.ToolDefault);
 						break;
- 					case ToolType.ToolBlockType:
+					case ToolType.ToolBlockType:
 						button.Texture = TextureLoader.GetBlockTexture(BlockTextureType.Oil);
 						button.BlockType = Block.BlockType.Oil;
 						break;

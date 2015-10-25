@@ -6,6 +6,7 @@ using Hexpoint.Blox.Hosts.Ui;
 using Hexpoint.Blox.Hosts.World;
 using OpenTK;
 using OpenTK.Input;
+using Buttons = Hexpoint.Blox.Hosts.Ui.Buttons;
 
 namespace Hexpoint.Blox.Hosts.Input
 {
@@ -338,7 +339,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			switch (e.Button)
 			{
 				case MouseButton.Left:
-					Buttons.LeftMouseDown(e.X, e.Y);
+					Ui.Buttons.LeftMouseDown(e.X, e.Y);
 					break;
 				case MouseButton.Right:
 					System.Windows.Forms.Cursor.Hide(); //hide mouse cursor while right mouse button is down
@@ -357,7 +358,7 @@ namespace Hexpoint.Blox.Hosts.Input
 			switch (e.Button)
 			{
 				case MouseButton.Left:
-					Buttons.LeftMouseUp(e.X, e.Y);
+					Ui.Buttons.LeftMouseUp(e.X, e.Y);
 					break;
 				case MouseButton.Right:
 					System.Windows.Forms.Cursor.Show(); //show mouse cursor while right mouse button is up

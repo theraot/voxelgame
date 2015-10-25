@@ -117,9 +117,9 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SolutionItems\Assemblies\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -350,9 +350,6 @@
     <None Include="Images\Progress.gif" />
     <None Include="Images\GreenCheck.png" />
     <None Include="Images\GreenFlag.png" />
-    <Content Include="OpenAL32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <None Include="Sounds\Resources\ItemPickup.wav" />
     <None Include="Sounds\Resources\Message.wav" />
@@ -412,9 +409,6 @@
     <Content Include="Textures\Item\Lantern.png" />
     <Content Include="Textures\Environment\Moon.png" />
     <Content Include="Textures\Environment\Sun.png" />
-    <Content Include="wrap_oal.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="GameObjects\GameObjects.cd" />
     <None Include="Textures\Blocks64\SnowLeaves.png" />
     <None Include="Textures\Blocks64\SnowSide.png" />
