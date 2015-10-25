@@ -21,7 +21,6 @@ namespace Hexpoint.Blox
 
 		private static string _configFilePath;
 		private static XmlDocument _configXml;
-		internal static DirectoryInfo AppDirectory;
 		internal static DirectoryInfo SaveDirectory;
 		#endregion
 
@@ -30,9 +29,8 @@ namespace Hexpoint.Blox
 		{
 			try
 			{
-				AppDirectory = new DirectoryInfo(Application.StartupPath);
-				if (AppDirectory == null) throw new Exception(string.Format("Failed to retrieve app directory info for: {0}", Application.StartupPath));
-				_configFilePath = Path.Combine(AppDirectory.FullName, "Config.xml"); //use Path.Combine to play nice with linux
+				// TODO: null Facade.Folder
+				_configFilePath = Path.Combine(Facade.Folder.FullName, "Config.xml"); //use Path.Combine to play nice with linux
 				_configXml = new XmlDocument();
 
 				if (File.Exists(_configFilePath)) //config file exists, load it
@@ -72,8 +70,9 @@ namespace Hexpoint.Blox
 				Facade.Configuration.CreativeMode = LoadSetting("CreativeMode", false);
 
 				const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
-				SaveDirectory = new DirectoryInfo(Path.Combine(AppDirectory.FullName, SAVE_FILE_FOLDER_NAME));
-				if (!SaveDirectory.Exists) SaveDirectory = AppDirectory.CreateSubdirectory(SAVE_FILE_FOLDER_NAME);
+				// TODO: null Facade.Folder
+				SaveDirectory = new DirectoryInfo(Path.Combine(Facade.Folder.FullName, SAVE_FILE_FOLDER_NAME));
+				if (!SaveDirectory.Exists) SaveDirectory = Facade.Folder.CreateSubdirectory(SAVE_FILE_FOLDER_NAME);
 
 				//set version here so the game window has access to it and so the server also loads it when starting in a new process
 				Settings.Version = new Version(Application.ProductVersion);

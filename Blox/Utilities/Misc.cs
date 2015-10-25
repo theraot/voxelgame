@@ -84,8 +84,8 @@ namespace Hexpoint.Blox.Utilities
 			GL.ReadPixels(0, 0, gameWindow.Width, gameWindow.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
 			bmp.UnlockBits(data);
 			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-
-			string screenshotPath = string.Format("{0}{1}{2:yyyy-MM-dd} Screenshot.png", Config.AppDirectory.FullName, System.IO.Path.DirectorySeparatorChar, DateTime.Today); //use System.IO.Path.DirectorySeparatorChar to play nice with linux
+			// TODO: null Facade.Folder
+			string screenshotPath = string.Format("{0}{1}{2:yyyy-MM-dd} Screenshot.png", Facade.Folder.FullName, System.IO.Path.DirectorySeparatorChar, DateTime.Today); //use System.IO.Path.DirectorySeparatorChar to play nice with linux
 			try
 			{
 				bmp.Save(screenshotPath, ImageFormat.Png);
