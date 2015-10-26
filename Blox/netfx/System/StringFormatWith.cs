@@ -49,23 +49,22 @@ internal static partial class StringFormatWithExtension
 	public static string FormatWith(this string format, object source)
 	{
 		if (format == null)
+		{
 			throw new ArgumentNullException("format");
-
+		}
 		var result = new StringBuilder(format.Length * 2);
-
 		using (var reader = new StringReader(format))
 		{
 			var expression = new StringBuilder();
-			var @char = -1;
-
 			var state = State.OutsideExpression;
 			do
 			{
+				int character;
 				switch (state)
 				{
 					case State.OutsideExpression:
-						@char = reader.Read();
-						switch (@char)
+						character = reader.Read();
+						switch (character)
 						{
 							case -1:
 								state = State.End;
@@ -80,14 +79,14 @@ internal static partial class StringFormatWithExtension
 								break;
 
 							default:
-								result.Append((char)@char);
+								result.Append((char)character);
 								break;
 						}
 						break;
 
 					case State.OnOpenBracket:
-						@char = reader.Read();
-						switch (@char)
+						character = reader.Read();
+						switch (character)
 						{
 							case -1:
 								throw new FormatException();
@@ -97,15 +96,15 @@ internal static partial class StringFormatWithExtension
 								break;
 
 							default:
-								expression.Append((char)@char);
+								expression.Append((char)character);
 								state = State.InsideExpression;
 								break;
 						}
 						break;
 
 					case State.InsideExpression:
-						@char = reader.Read();
-						switch (@char)
+						character = reader.Read();
+						switch (character)
 						{
 							case -1:
 								throw new FormatException();
@@ -116,14 +115,14 @@ internal static partial class StringFormatWithExtension
 								break;
 
 							default:
-								expression.Append((char)@char);
+								expression.Append((char)character);
 								break;
 						}
 						break;
 
 					case State.OnCloseBracket:
-						@char = reader.Read();
-						switch (@char)
+						character = reader.Read();
+						switch (character)
 						{
 							case '}':
 								result.Append('}');
@@ -148,19 +147,18 @@ internal static partial class StringFormatWithExtension
 	{
 		var format = "";
 		var colonIndex = expression.IndexOf(':');
-
 		if (colonIndex > 0)
 		{
 			format = expression.Substring(colonIndex + 1);
 			expression = expression.Substring(0, colonIndex);
 		}
-
 		try
 		{
 			if (string.IsNullOrEmpty(format))
+			{
 				return (Eval(source, expression) ?? "").ToString();
-			else
-				return Eval(source, expression, "{0:" + format + "}") ?? "";
+			}
+			return Eval(source, expression, "{0:" + format + "}") ?? "";
 		}
 		catch (FormatException exception)
 		{

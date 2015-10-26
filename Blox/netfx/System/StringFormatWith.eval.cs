@@ -39,151 +39,157 @@ internal static partial class StringFormatWithExtension
 	public static object Eval(object container, string expression)
 	{
 		expression = expression != null ? expression.Trim() : null;
-		if (expression == null || expression.Length == 0)
+		if (string.IsNullOrEmpty(expression))
+		{
 			throw new ArgumentNullException("expression");
-
-		object current = container;
+		}
+		var current = container;
 		while (current != null)
 		{
-			int dot = expression.IndexOf('.');
-			int size = (dot == -1) ? expression.Length : dot;
-			string prop = expression.Substring(0, size);
-
-			if (prop.IndexOf('[') != -1)
-				current = GetIndexedPropertyValue(current, prop);
-			else
-				current = GetPropertyValue(current, prop);
-
+			var dot = expression.IndexOf('.');
+			var size = (dot == -1) ? expression.Length : dot;
+			var prop = expression.Substring(0, size);
+			current = prop.IndexOf('[') == -1 ? GetPropertyValue(current, prop) : GetIndexedPropertyValue(current, prop);
 			if (dot == -1)
+			{
 				break;
-
+			}
 			expression = expression.Substring(prop.Length + 1);
 		}
-
 		return current;
 	}
 
 	public static string Eval(object container, string expression, string format)
 	{
-		object result = Eval(container, expression);
+		var result = Eval(container, expression);
 		return FormatResult(result, format);
 	}
 
 	public static object GetIndexedPropertyValue(object container, string expr)
 	{
 		if (container == null)
+		{
 			throw new ArgumentNullException("container");
+		}
 		if ((expr == null) || (expr.Length == 0))
+		{
 			throw new ArgumentNullException("expr");
-
-		int openIdx = expr.IndexOf('[');
-		int closeIdx = expr.IndexOf(']'); // see the test case. MS ignores all after the first ]
+		}
+		var openIdx = expr.IndexOf('[');
+		var closeIdx = expr.IndexOf(']'); // see the test case. MS ignores all after the first ]
 		if (openIdx < 0 || closeIdx < 0 || closeIdx - openIdx <= 1)
+		{
 			throw new ArgumentException(expr + " is not a valid indexed expression.");
-
-		string val = expr.Substring(openIdx + 1, closeIdx - openIdx - 1);
+		}
+		var val = expr.Substring(openIdx + 1, closeIdx - openIdx - 1);
 		val = val.Trim();
 		if (val.Length == 0)
-			throw new ArgumentException(expr + " is not a valid indexed expression.");
-
-		bool is_string = false;
-		// a quoted val means we have a string
-		if ((val[0] == '\'' && val[val.Length - 1] == '\'') ||
-			(val[0] == '\"' && val[val.Length - 1] == '\"'))
 		{
-			is_string = true;
+			throw new ArgumentException(expr + " is not a valid indexed expression.");
+		}
+		var isString = false;
+		// a quoted val means we have a string
+		if ((val[0] == '\'' && val[val.Length - 1] == '\'') || (val[0] == '\"' && val[val.Length - 1] == '\"'))
+		{
+			isString = true;
 			val = val.Substring(1, val.Length - 2);
 		}
 		else
 		{
 			// if all chars are digits, then we have a int
-			for (int i = 0; i < val.Length; i++)
-				if (!Char.IsDigit(val[i]))
+			foreach (char character in val)
+			{
+				if (!char.IsDigit(character))
 				{
-					is_string = true;
+					isString = true;
 					break;
 				}
+			}
 		}
-
-		int intVal = 0;
-		if (!is_string)
+		var intVal = 0;
+		if (!isString)
 		{
 			try
 			{
-				intVal = Int32.Parse(val);
+				intVal = int.Parse(val);
 			}
-			catch
+			catch (Exception ex)
 			{
-				throw new ArgumentException(expr + " is not a valid indexed expression.");
+				throw new ArgumentException(expr + " is not a valid indexed expression.", ex);
 			}
 		}
-
-		string property = null;
+		string property;
 		if (openIdx > 0)
 		{
 			property = expr.Substring(0, openIdx);
-			if (property != null && property.Length > 0)
+			if (!string.IsNullOrEmpty(property))
+			{
 				container = GetPropertyValue(container, property);
+			}
 		}
-
 		if (container == null)
-			return null;
-
-		if (container is System.Collections.IList)
 		{
-			if (is_string)
-				throw new ArgumentException(expr + " cannot be indexed with a string.");
-			IList l = (IList)container;
-			return l[intVal];
+			return null;
 		}
-
-		Type t = container.GetType();
-
+		var list = container as IList;
+		if (list != null)
+		{
+			if (isString)
+			{
+				throw new ArgumentException(expr + " cannot be indexed with a string.");
+			}
+			return list[intVal];
+		}
+		var t = container.GetType();
 		// MS does not seem to look for any other than "Item"!!!
-		object[] atts = t.GetCustomAttributes(typeof(DefaultMemberAttribute), false);
-		if (atts.Length != 1)
-			property = "Item";
-		else
-			property = ((DefaultMemberAttribute)atts[0]).MemberName;
-
-		Type[] argTypes = new Type[] { (is_string) ? typeof(string) : typeof(int) };
-		PropertyInfo prop = t.GetProperty(property, argTypes);
+		var atts = t.GetCustomAttributes(typeof(DefaultMemberAttribute), false);
+		property = atts.Length == 1 ? ((DefaultMemberAttribute) atts[0]).MemberName : "Item";
+		var argTypes = new[] { (isString) ? typeof(string) : typeof(int) };
+		var prop = t.GetProperty(property, argTypes);
 		if (prop == null)
+		{
 			throw new ArgumentException(expr + " indexer not found.");
-
-		object[] args = new object[1];
-		if (is_string)
+		}
+		var args = new object[1];
+		if (isString)
+		{
 			args[0] = val;
+		}
 		else
+		{
 			args[0] = intVal;
-
+		}
 		return prop.GetValue(container, args);
 	}
 
 	public static object GetPropertyValue(object container, string propName)
 	{
 		if (container == null)
+		{
 			throw new ArgumentNullException("container");
-		if (propName == null || propName.Length == 0)
+		}
+		if (string.IsNullOrEmpty(propName))
+		{
 			throw new ArgumentNullException("propName");
-
-		PropertyDescriptor prop = TypeDescriptor.GetProperties(container).Find(propName, true);
+		}
+		var prop = TypeDescriptor.GetProperties(container).Find(propName, true);
 		if (prop == null)
 		{
 			throw new FormatException("Property " + propName + " not found in " + container.GetType());
 		}
-
 		return prop.GetValue(container);
 	}
 
 	internal static string FormatResult(object result, string format)
 	{
 		if (result == null)
-			return String.Empty;
-
-		if (format == null || format.Length == 0)
+		{
+			return string.Empty;
+		}
+		if (string.IsNullOrEmpty(format))
+		{
 			return result.ToString();
-
-		return String.Format(format, result);
+		}
+		return string.Format(format, result);
 	}
 }
