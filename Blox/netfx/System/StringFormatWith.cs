@@ -29,7 +29,7 @@ using System.Web.UI;
 /// <summary>
 /// Requires a reference to System.Web.
 /// </summary>
-internal static class StringFormatWithExtension
+internal static partial class StringFormatWithExtension
 {
 	private enum State
 	{
@@ -162,9 +162,9 @@ internal static class StringFormatWithExtension
 		try
 		{
 			if (string.IsNullOrEmpty(format))
-				return (DataBinder.Eval(source, expression) ?? "").ToString();
+				return (Eval(source, expression) ?? "").ToString();
 			else
-				return DataBinder.Eval(source, expression, "{0:" + format + "}") ?? "";
+				return Eval(source, expression, "{0:" + format + "}") ?? "";
 		}
 		catch (HttpException)
 		{
