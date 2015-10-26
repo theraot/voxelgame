@@ -68,7 +68,7 @@ namespace Hexpoint.Blox
 		private void LoadWorlds()
 		{
 			ddlWorld.Items.Clear();
-			ddlWorld.Items.Add("<<Create New World>>");
+			ddlWorld.Items.Add(Facade.Texts("<<Create New World>>", null));
 			foreach (var fi in Facade.SaveDirectory.GetFiles(string.Format("*{0}", Constants.WORLD_FILE_EXTENSION))) ddlWorld.Items.Add(fi.Name.Replace(Constants.WORLD_FILE_EXTENSION, "")); //create list items for all files with the proper extension
 		}
 
@@ -111,7 +111,7 @@ namespace Hexpoint.Blox
 			if (ddlWorld.SelectedIndex == 0) //creating new world
 			{
 				string newWorldName = txtNewWorldName.Text.Trim();
-				if (newWorldName.Length == 0) { Misc.MessageError("World name is required to create a new world."); return false; }
+				if (newWorldName.Length == 0) { Misc.MessageError(Facade.Texts("World name is required to create a new world.", null)); return false; }
 				if (System.IO.Path.GetInvalidFileNameChars().Any(c => newWorldName.Contains(c.ToString()))) { Misc.MessageError("World name contains an invalid character."); return false; }
 				if (Facade.SaveDirectory.GetFiles(string.Format("{0}{1}", newWorldName, Constants.WORLD_FILE_EXTENSION)).Length > 0) { Misc.MessageError("World name already exists. A unique name is required."); return false; }
 
@@ -268,14 +268,14 @@ namespace Hexpoint.Blox
 		private void FormLoading()
 		{
 			foreach (Control control in Controls) control.Enabled = false; //disable the entire form
-			btnStart.Text = "Loading...";
+			btnStart.Text = Facade.Texts("Loading...", null);
 		}
 
 		/// <summary>Reset the form if we hit any validation errors.</summary>
 		private void FormReset()
 		{
 			foreach (Control control in Controls) control.Enabled = true;
-			btnStart.Text = "Start Game";
+			btnStart.Text = Facade.Texts("Start Game", null);
 			txtProgress.Visible = false;
 			pbProgress.Visible = false;
 		}

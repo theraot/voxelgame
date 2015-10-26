@@ -340,6 +340,9 @@
     <None Include="Images\Progress.gif" />
     <None Include="Images\GreenCheck.png" />
     <None Include="Images\GreenFlag.png" />
+    <None Include="VoxelGame\Lang\es.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Sounds\Resources\ItemPickup.wav" />
     <None Include="Sounds\Resources\Message.wav" />
