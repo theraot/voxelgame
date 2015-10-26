@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading;
@@ -51,7 +53,12 @@ namespace Hexpoint.Blox
 		/// <summary>
 		/// Gets the language for the current process.
 		/// </summary>
-		public static string System { get; private set; }
+		public static string SystemLanguage { get; private set; }
+
+		/// <summary>
+		/// Gets the localized texts for the current language
+		/// </summary>
+		public static Func<string, object, string> Texts { get; internal set; }
 
 		/// <summary>
 		/// Initialize the application.
@@ -93,6 +100,50 @@ namespace Hexpoint.Blox
 			}
 		}
 
+		private static Dictionary<string, string> GetLocalizedTexts(string language)
+		{
+			var assembly = Assembly.GetCallingAssembly();
+			Logbook.Trace
+				(
+				TraceEventType.Information,
+				"Requested to read localized texts for {0}",
+				assembly.GetName().Name
+			);
+			// Will try to read:
+			// - ~\Lang\langcode\AssemblyName.json
+			// - %AppData%\InternalName\Lang\langcode\AssemblyName.json
+			// - Assembly!Namespace.Lang.langcode.json
+			var languageArray = language.Split('-');
+			var prefixes = new List<string>();
+			var composite = new StringBuilder();
+			foreach (var sublanguage in languageArray)
+			{
+				if (composite.Length > 0)
+				{
+					composite.Append("-");
+				}
+				composite.Append(sublanguage.Trim());
+				prefixes.Add("Lang." + composite);
+			}
+			prefixes.Reverse();
+			var stream = Resources.Read(assembly, ".json", prefixes.ToArray(), "json");
+			if (stream == null)
+			{
+				Logbook.Trace
+					(
+					TraceEventType.Information,
+					"No localized texts for {0}",
+					assembly.GetName().Name
+				);
+				return null;
+			}
+			using (var reader = new StreamReader(stream, Encoding.UTF8))
+			{
+				var str = reader.ReadToEnd();
+				return JsonConvert.DeserializeObject<Dictionary<string, string>>(str);
+			}
+		}
+
 		[SecuritySafeCritical]
 		private static void InitializeExtracted(string logFile)
 		{
@@ -126,7 +177,7 @@ namespace Hexpoint.Blox
 			// Reading System Language
 			// *********************************
 
-			System = CultureInfo.CurrentCulture.TextInfo.CultureName;
+			SystemLanguage = CultureInfo.CurrentCulture.TextInfo.CultureName;
 
 			// *********************************
 			// Setting debug mode
@@ -162,7 +213,7 @@ namespace Hexpoint.Blox
 			// Reading main Facade.Configuration
 			// *********************************
 
-			// TODO localization
+			Texts = LoadTexts(SystemLanguage);
 		}
 
 		private static void LoadConfiguration()
@@ -194,6 +245,27 @@ namespace Hexpoint.Blox
 			const string SAVE_FILE_FOLDER_NAME = "SaveFiles";
 			SaveDirectory = new DirectoryInfo(Path.Combine(Folder.FullName, SAVE_FILE_FOLDER_NAME));
 			if (!SaveDirectory.Exists) SaveDirectory = Folder.CreateSubdirectory(SAVE_FILE_FOLDER_NAME);
+		}
+
+		/// <summary>
+		/// Retrieve a LocalizedTexts with the localized texts for the calling assembly.
+		/// </summary>
+		/// <param name="language">The language for which to load the texts.</param>
+		/// <returns>a new LocalizedTexts object for the calling assembly</returns>
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		private static Func<string, object, string> LoadTexts(string language)
+		{
+			var dictionary = GetLocalizedTexts(language);
+			if (dictionary == null)
+			{
+				// Keep the lambda notation - it is tempting to try to simplify this line... don't.
+				return (format, source) => format.FormatWith(source);
+			}
+			return (format, source) =>
+			{
+				string result;
+				return dictionary.TryGetValue(format, out result) && source != null ? result.FormatWith(source) : format;
+			};
 		}
 
 		[Conditional("DEBUG")]
