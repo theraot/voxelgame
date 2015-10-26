@@ -30,7 +30,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
-using System.Web;
 
 /// <summary>
 /// Requires a reference to System.Web.
@@ -171,8 +170,7 @@ internal static partial class StringFormatWithExtension
 		PropertyDescriptor prop = TypeDescriptor.GetProperties(container).Find(propName, true);
 		if (prop == null)
 		{
-			throw new HttpException("Property " + propName + " not found in " +
-						 container.GetType());
+			throw new FormatException("Property " + propName + " not found in " + container.GetType());
 		}
 
 		return prop.GetValue(container);

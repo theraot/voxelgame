@@ -23,8 +23,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 using System;
 using System.IO;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 
 /// <summary>
 /// Requires a reference to System.Web.
@@ -43,9 +41,7 @@ internal static partial class StringFormatWithExtension
 	/// <summary>
 	/// Formats the string with the given source object.
 	/// Expression like {Id} are replaced with the corresponding
-	/// property value in the <paramref name="source"/>. Supports
-	/// all <see cref="DataBinder.Eval"/> expressions formats
-	/// for property access.
+	/// property value in the <paramref name="source"/>.
 	/// </summary>
 	/// <nuget id="netfx-System.StringFormatWith" />
 	/// <param name="format" this="true">The string to format</param>
@@ -166,9 +162,9 @@ internal static partial class StringFormatWithExtension
 			else
 				return Eval(source, expression, "{0:" + format + "}") ?? "";
 		}
-		catch (HttpException)
+		catch (FormatException exception)
 		{
-			throw new FormatException("Failed to format '" + expression + "'.");
+			throw new FormatException("Failed to format '" + expression + "'.", exception);
 		}
 	}
 }
