@@ -19,10 +19,10 @@ namespace Hexpoint.Blox
 	public static class Facade
 	{
 		internal static DirectoryInfo SaveDirectory;
-		private const int INT_Initialized = 2;
-		private const int INT_Initializing = 1;
-		private const int INT_NotInitialized = 0;
-		private static int _status;
+
+		private static readonly object _synclock = new object();
+		private static volatile bool _done;
+		private static bool _lockTaken;
 
 		/// <summary>
 		/// Gets the current Configuration.
@@ -66,10 +66,71 @@ namespace Hexpoint.Blox
 		/// <param name="logFile">The name of the desired log file</param>
 		public static void Initialize(string logFile)
 		{
-			if (Interlocked.CompareExchange(ref _status, INT_Initializing, INT_NotInitialized) == INT_NotInitialized)
+			// Will be in this method until the job is done (so after the method returns* we know it is done).
+			// *: When the method returns it is done, but not when it throws.
+			while (!_done)
 			{
-				InitializeExtracted(logFile);
-				Thread.VolatileWrite(ref _status, INT_Initialized);
+				bool lockOwned;
+				try
+				{
+					// Only one thread will get the lock.
+					// After the lock is taken, any subsequent thread will get an exception.
+					// But there is a chance that many threads will pass without exception.
+					Monitor.TryEnter(_synclock, ref _lockTaken);
+					// If multiple threads passed without exception, only one of then has the lock.
+					// The thread that has the lock can take it again.
+					lockOwned = Monitor.TryEnter(_synclock);
+					if (lockOwned)
+					{
+						// The current thread took the lock again.
+						// Release the lock once.
+						Monitor.Exit(_synclock);
+					}
+				}
+				catch (ArgumentException)
+				{
+					// Since the current thread doesn't have the lock, it must wait until the job is done.
+					lockOwned = false;
+				}
+				// If the current thread has the lock...
+				if (lockOwned)
+				{
+					try
+					{
+						// Do the job.
+						InitializeExtracted(logFile);
+						// Report that the job is done.
+						_done = true;
+						// return.
+						return;
+					}
+					catch (Exception)
+					{
+						// Failed to do the job, we need another thread to get the lock.
+						_lockTaken = false;
+						// Let it throw for logs.
+						throw;
+					}
+					finally
+					{
+						// Regardless of success of failure...
+						// Release the lock.
+						Monitor.Exit(_synclock);
+					}
+				}
+				// The block above did return or throw, so here we know that the current thread doesn't have the lock.
+				while (_lockTaken)
+				{
+					if (_done)
+					{
+						// The job is already done, return.
+						return;
+					}
+					// The job is yet to be done, yield the time slice for another thread to proceed.
+					Thread.Yield();
+				}
+				// The lock has been released, this means that the thread that had the lock has failed.
+				// Loop to try again to get the lock.
 			}
 		}
 
