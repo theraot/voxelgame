@@ -148,11 +148,10 @@ namespace Hexpoint.Blox
 				);
 				var str = JsonConvert.SerializeObject(Configuration);
 				// Will try to write:
-				// - ~\Config\AssemblyName.json
-				// - %AppData%\InternalName\Config\AssemblyName.json
+				// - ~\AssemblyName\Lang\config.json
 				using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(str)))
 				{
-					Resources.Write(assembly, "Config", ".json", stream);
+					Resources.Write(assembly, ".json", null, "config", stream);
 				}
 			}
 			catch (Exception ex)
@@ -171,11 +170,10 @@ namespace Hexpoint.Blox
 				assembly.GetName().Name
 			);
 			// Will try to read:
-			// - ~\Lang\langcode\AssemblyName.json
-			// - %AppData%\InternalName\Lang\langcode\AssemblyName.json
+			// - ~\AssemblyName\Lang\langcode.json
 			// - Assembly!Namespace.Lang.langcode.json
 			var languageArray = language.Split('-');
-			var prefixes = new List<string>();
+			var resourceNames = new List<string>();
 			var composite = new StringBuilder();
 			foreach (var sublanguage in languageArray)
 			{
@@ -184,10 +182,10 @@ namespace Hexpoint.Blox
 					composite.Append("-");
 				}
 				composite.Append(sublanguage.Trim());
-				prefixes.Add("Lang." + composite);
+				resourceNames.Add(composite.ToString());
 			}
-			prefixes.Reverse();
-			var stream = Resources.Read(assembly, ".json", prefixes.ToArray(), "json");
+			resourceNames.Reverse();
+			var stream = Resources.Read(assembly, ".json", new []{"Lang"}, resourceNames.ToArray());
 			if (stream == null)
 			{
 				Logbook.Trace
@@ -282,16 +280,15 @@ namespace Hexpoint.Blox
 			var assembly = Assembly.GetCallingAssembly();
 			Logbook.Trace
 				(
-				TraceEventType.Information,
-				"Requested to read configuration for {0}",
-				assembly.GetName().Name
-			);
+					TraceEventType.Information,
+					"Requested to read configuration for {0}",
+					assembly.GetName().Name
+				);
 			// Will try to read:
-			// - ~\Config\AssemblyName.json
-			// - %AppData%\InternalName\Config\AssemblyName.json
-			// - Assembly!Namespace.Config.default.json
+			// - ~\AssemblyName\config.json
+			// - Assembly!Namespace.config.json
 
-			var stream = Resources.Read(assembly, @".json", new[] { "Config" }, "default.json");
+			var stream = Resources.Read(assembly, ".json", null, "config");
 			if (stream != null)
 			{
 				using (var reader = new StreamReader(stream, Encoding.UTF8))
@@ -299,6 +296,11 @@ namespace Hexpoint.Blox
 					var str = reader.ReadToEnd();
 					Configuration = JsonConvert.DeserializeObject<Configuration>(str);
 				}
+			}
+			if (Configuration == null)
+			{
+				// On failure load default
+				Configuration = new Configuration();
 			}
 
 			Settings.Version = new Version(Application.ProductVersion);
