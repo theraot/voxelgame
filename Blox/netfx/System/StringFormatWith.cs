@@ -1,5 +1,6 @@
 ﻿#region BSD License
-/* 
+
+/*
 Copyright (c) 2010, NETFx
 All rights reserved.
 
@@ -13,28 +14,37 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#endregion
+
+#endregion BSD License
+
 // Originally appeared in http://haacked.com/archive/2009/01/14/named-formats-redux.aspx
 // Authored by Henri Wiechers
 // Ported to NETFx by Daniel Cazzulino
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.UI;
-using System.Web;
 using System.IO;
+using System.Text;
+using System.Web;
+using System.Web.UI;
 
 /// <summary>
 /// Requires a reference to System.Web.
 /// </summary>
 internal static class StringFormatWithExtension
 {
+	private enum State
+	{
+		OutsideExpression,
+		OnOpenBracket,
+		InsideExpression,
+		OnCloseBracket,
+		End
+	}
+
 	/// <summary>
-	/// Formats the string with the given source object. 
-	/// Expression like {Id} are replaced with the corresponding 
-	/// property value in the <paramref name="source"/>. Supports 
-	/// all <see cref="DataBinder.Eval"/> expressions formats 
+	/// Formats the string with the given source object.
+	/// Expression like {Id} are replaced with the corresponding
+	/// property value in the <paramref name="source"/>. Supports
+	/// all <see cref="DataBinder.Eval"/> expressions formats
 	/// for property access.
 	/// </summary>
 	/// <nuget id="netfx-System.StringFormatWith" />
@@ -64,17 +74,21 @@ internal static class StringFormatWithExtension
 							case -1:
 								state = State.End;
 								break;
+
 							case '{':
 								state = State.OnOpenBracket;
 								break;
+
 							case '}':
 								state = State.OnCloseBracket;
 								break;
+
 							default:
 								result.Append((char)@char);
 								break;
 						}
 						break;
+
 					case State.OnOpenBracket:
 						@char = reader.Read();
 						switch (@char)
@@ -85,12 +99,14 @@ internal static class StringFormatWithExtension
 								result.Append('{');
 								state = State.OutsideExpression;
 								break;
+
 							default:
 								expression.Append((char)@char);
 								state = State.InsideExpression;
 								break;
 						}
 						break;
+
 					case State.InsideExpression:
 						@char = reader.Read();
 						switch (@char)
@@ -102,11 +118,13 @@ internal static class StringFormatWithExtension
 								expression.Length = 0;
 								state = State.OutsideExpression;
 								break;
+
 							default:
 								expression.Append((char)@char);
 								break;
 						}
 						break;
+
 					case State.OnCloseBracket:
 						@char = reader.Read();
 						switch (@char)
@@ -115,10 +133,12 @@ internal static class StringFormatWithExtension
 								result.Append('}');
 								state = State.OutsideExpression;
 								break;
+
 							default:
 								throw new FormatException();
 						}
 						break;
+
 					default:
 						throw new InvalidOperationException("Invalid state.");
 				}
@@ -150,14 +170,5 @@ internal static class StringFormatWithExtension
 		{
 			throw new FormatException("Failed to format '" + expression + "'.");
 		}
-	}
-
-	private enum State
-	{
-		OutsideExpression,
-		OnOpenBracket,
-		InsideExpression,
-		OnCloseBracket,
-		End
 	}
 }
