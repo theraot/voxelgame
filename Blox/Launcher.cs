@@ -112,8 +112,8 @@ namespace Hexpoint.Blox
 			{
 				string newWorldName = txtNewWorldName.Text.Trim();
 				if (newWorldName.Length == 0) { Misc.MessageError(Facade.Texts("World name is required to create a new world.", null)); return false; }
-				if (System.IO.Path.GetInvalidFileNameChars().Any(c => newWorldName.Contains(c.ToString()))) { Misc.MessageError("World name contains an invalid character."); return false; }
-				if (Facade.SaveDirectory.GetFiles(string.Format("{0}{1}", newWorldName, Constants.WORLD_FILE_EXTENSION)).Length > 0) { Misc.MessageError("World name already exists. A unique name is required."); return false; }
+				if (System.IO.Path.GetInvalidFileNameChars().Any(c => newWorldName.Contains(c.ToString()))) { Misc.MessageError(Facade.Texts("World name contains invalid characters.", null)); return false; }
+				if (Facade.SaveDirectory.GetFiles(string.Format("{0}{1}", newWorldName, Constants.WORLD_FILE_EXTENSION)).Length > 0) { Misc.MessageError(Facade.Texts("A world with the name {name} already exists. A unique name is required.", new {name = newWorldName})); return false; }
 
 				Settings.WorldFilePath = newWorldName;
 				WorldData.WorldType = (WorldType)Enum.Parse(typeof(WorldType), ddlNewWorldType.SelectedItem.ToString());
@@ -124,7 +124,7 @@ namespace Hexpoint.Blox
 				WorldData.SizeInChunksZ = int.Parse(sizes[1].Trim());
 				WorldData.GenerateWithTrees = cbTrees.Checked;
 
-				UpdateProgress("Generating world...", 0, 0);
+				UpdateProgress(Facade.Texts("Generating world...", null), 0, 0);
 				Generator.Generate();
 			}
 			else //loading previously saved world
@@ -132,7 +132,7 @@ namespace Hexpoint.Blox
 				//todo: now this is set in the Load of the server console, should have a better way of having it auto load when config is loaded? come back to this later
 				//-ie: this works for client because it gets started in the same process, the server forgets this setting because of starting in a new process
 				Settings.WorldFilePath = ddlWorld.SelectedItem.ToString();
-				if (!System.IO.File.Exists(Settings.WorldFilePath)) { Misc.MessageError("World not found."); LoadWorlds(); ddlWorld.SelectedIndex = 0; return false; } //user probably deleted/renamed after the ddl loaded, reload the ddl
+				if (!System.IO.File.Exists(Settings.WorldFilePath)) { Misc.MessageError(Facade.Texts("World not found.", null)); LoadWorlds(); ddlWorld.SelectedIndex = 0; return false; } //user probably deleted/renamed after the ddl loaded, reload the ddl
 			}
 			return true;
 		}
@@ -146,7 +146,7 @@ namespace Hexpoint.Blox
 		private ushort _serverPort = Server.Controller.TCP_LISTENER_PORT;
 		private void btnStart_Click(object sender, EventArgs e)
 		{
-			if (txtUserName.Enabled && txtUserName.Text.Trim().Length == 0) { Misc.MessageError("UserName is required."); return; }
+			if (txtUserName.Enabled && txtUserName.Text.Trim().Length == 0) { Misc.MessageError(Facade.Texts("UserName is required.", null)); return; }
 
 			FormLoading();
 
@@ -164,7 +164,7 @@ namespace Hexpoint.Blox
 				}
 				catch (Exception ex)
 				{
-					Misc.MessageError("Invalid Server IP address or hostname: " + ex.Message);
+					Misc.MessageError(Facade.Texts("Invalid Server IP address or hostname: {msg}", new {msg = ex.Message}));
 					FormReset();
 					return;
 				}
@@ -207,7 +207,7 @@ namespace Hexpoint.Blox
 			{
 				if (e.Error != null) throw e.Error;
 
-				UpdateProgress("Initializing Game Window", 0, 0);
+				UpdateProgress(Facade.Texts("Initializing Game Window", null), 0, 0);
 				using (var game = new Game())
 				{
 					Hide(); //need to hide the launcher rather then closing so that any errors can still display in a message box

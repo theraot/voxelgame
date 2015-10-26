@@ -1,6 +1,13 @@
 ﻿{
-  "<<Create New World>>"                          : "<<Crear Nuevo Mundo>>",
-  "World name is required to create a new world." : "Se requiere un nombre para crear un nuevo mundo.",
-  "Loading..."                                    : "Cargando...",
-  "Start Game"                                    : "Iniciar Juego"
+  "<<Create New World>>": "<<Crear Nuevo Mundo>>",
+  "A world with the name {name} already exists. A unique name is required.": "Un mundo con el nombre {name} ya existe. Se requiere un nombre unico.",
+  "Generating world...": "Generando mundo",
+  "Initializing Game Window": "Inicializando ventana del juego",
+  "Invalid Server IP address or hostname: {msg}": "Dirección IP o nombre de dominio del servidor no valido: {msg}",
+  "Loading...": "Cargando...",
+  "Start Game": "Iniciar Juego",
+  "UserName is required.": "Nombre de usuario es obligatorio",
+  "World name contains invalid characters.": "El nombre del mundo contiene caracters invalidos.",
+  "World name is required to create a new world.": "Se requiere un nombre para crear un nuevo mundo.",
+  "World not found.": "Mundo no encontrado"
 }
