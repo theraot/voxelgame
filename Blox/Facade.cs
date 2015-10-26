@@ -327,7 +327,15 @@ namespace Hexpoint.Blox
 			return (format, source) =>
 			{
 				string result;
-				return dictionary.TryGetValue(format, out result) && source != null ? result.FormatWith(source) : format;
+				if (dictionary.TryGetValue(format, out result))
+				{
+					if (source != null)
+					{
+						return result.FormatWith(source);
+					}
+					return result;
+				}
+				return format;
 			};
 		}
 
