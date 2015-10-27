@@ -10,7 +10,7 @@ namespace Hexpoint.Blox.Server
 {
 	internal partial class ServerConsole : Form
 	{
-		#region Constructors
+		/* Constructors */
 		public ServerConsole()
 		{
 			InitializeComponent();
@@ -56,13 +56,17 @@ namespace Hexpoint.Blox.Server
 
 			//tools tab
 		}
-		#endregion
+	}
 
-		#region Properties
+	internal partial class ServerConsole : Form
+	{
+		/* Properties */
 		private DateTime _startTime;
 		private DataTable _dtPlayers;
-		#endregion
+	}
 
+	internal partial class ServerConsole : Form
+	{
 		internal void UpdateLogInvokable(string message)
 		{
 			if (!InvokeRequired) UpdateLog(message); else Invoke((MethodInvoker)(() => UpdateLog(message))); //allows other threads to update this form
@@ -133,13 +137,16 @@ namespace Hexpoint.Blox.Server
 				UpdateLog("Error sending broadcast: " + ex.Message);
 			}
 		}
+	}
 
-		#region TCP Stream Tab
+	internal partial class ServerConsole : Form
+	{
+		/* TCP Stream Tab */
 		private void cbCaptureOut_CheckedChanged(object sender, EventArgs e)
 		{
 			Controller.CaptureOutgoing = cbCaptureOut.Checked;
 		}
-	
+
 		private void cbCaptureIn_CheckedChanged(object sender, EventArgs e)
 		{
 			Controller.CaptureIncoming = cbCaptureIn.Checked;
@@ -174,9 +181,11 @@ namespace Hexpoint.Blox.Server
 				Misc.MessageError("Error updating server console stream: " + ex.Message);
 			}
 		}
-		#endregion
+	}
 
-		#region Server Settings Tab
+	internal partial class ServerConsole : Form
+	{
+		/* Server Settings Tab */
 		private void btnMotdUpdate_Click(object sender, EventArgs e)
 		{
 			txtMotd.Text = txtMotd.Text.Trim();
@@ -198,9 +207,11 @@ namespace Hexpoint.Blox.Server
 			Clipboard.SetText(string.Format("/admin {0}", Controller.AdminPassword));
 			Misc.MessageInfo("Admin Password command copied to clipboard.");
 		}
-		#endregion
+	}
 
-		#region Tools Tab
+	internal partial class ServerConsole : Form
+	{
+		/* Tools Tab */
 		private void btnReverseIp_Click(object sender, EventArgs e)
 		{
 			System.Net.IPAddress ip;
@@ -209,9 +220,11 @@ namespace Hexpoint.Blox.Server
 			else
 				Misc.MessageError("Invalid IP address.");
 		}
-		#endregion
+	}
 
-		#region Menu Choices
+	internal partial class ServerConsole : Form
+	{
+		/* Menu Choices */
 		//file menu
 		private void mnuNewLauncher_Click(object sender, EventArgs e)
 		{
@@ -282,7 +295,6 @@ namespace Hexpoint.Blox.Server
 			var timespan = DateTime.Now - _startTime;
 			MessageBox.Show(string.Format("Server start time: {0:MMM dd h:mm tt}\nCurrent Uptime: {1} days {2} hours {3} mins", _startTime, timespan.Days, timespan.Hours, timespan.Minutes), "Server Uptime", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
-		#endregion
 
 	}
 }
