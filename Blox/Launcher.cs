@@ -22,10 +22,10 @@ namespace Hexpoint.Blox
 		{
 			Text = string.Format("{0} {1}", Application.ProductName, Settings.VersionDisplay);
 			ddlServerIp.Items.AddRange(new object[] { "127.0.0.1 (localhost)", "hornet.voxelgame.com" });
-#if DEBUG
-			Text += " (DEBUG)";
-#endif
-
+			if (Facade.DebugMode)
+			{
+				Text += " (DEBUG)";
+			}
 			if (Facade.Configuration.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
 			GameMode_Changed(null, null);
 			txtUserName.Text = Facade.Configuration.UserName.Length == 0 ? Environment.MachineName : Facade.Configuration.UserName;
@@ -221,32 +221,41 @@ namespace Hexpoint.Blox
 			}
 			catch (ServerDisconnectException ex)
 			{
-#if DEBUG
-				Misc.MessageError(string.Format("{0}: {1}", ex.Message, ex.InnerException.StackTrace));
-#else
-				Misc.MessageError(ex.Message);
-#endif
+				if (Facade.DebugMode)
+				{
+					Misc.MessageError(string.Format("{0}: {1}", ex.Message, ex.InnerException.StackTrace));
+				}
+				else
+				{
+					Misc.MessageError(ex.Message);
+				}
 				Application.Restart(); //just restart the app so theres no need to worry about lingering forms, settings, state issues, etc.				
 			}
-#if DEBUG
-#else //comment this line to use this error handling while in debug mode
 			catch (Exception ex)
 			{
+				if (Facade.DebugMode)
+				{
+					throw;
+				}
 				try
 				{
-					Misc.MessageError(string.Format("{0}\n\nApplication Version: {1}\nServer: {2}\nPosition: {3}\nPerformance: {4}\n\nOpenGL: {5} {6}\nGLSL: {7}\nVideo Card: {8}\nOS: {9}\nCulture: {10}\n\n{11}",
-													ex.Message,
-													ProductVersion,
-													_serverIp != null ? string.Format("{0}:{1}", _serverIp, _serverPort) : "n/a",
-													Game.Player != null ? Game.Player.Coords.ToString() : "unknown",
-													Game.PerformanceHost != null ? string.Format("{0} mb, {1} fps", Game.PerformanceHost.Memory, Game.PerformanceHost.Fps) : "unknown",
-													Diagnostics.OpenGlVersion,
-													Diagnostics.OpenGlVendor,
-													Diagnostics.OpenGlGlsl,
-													Diagnostics.OpenGlRenderer,
-													Diagnostics.OperatingSystem,
-													System.Globalization.CultureInfo.CurrentCulture.Name,
-													ex.StackTrace));
+					Misc.MessageError(
+						string.Format(
+							"{0}\n\nApplication Version: {1}\nServer: {2}\nPosition: {3}\nPerformance: {4}\n\nOpenGL: {5} {6}\nGLSL: {7}\nVideo Card: {8}\nOS: {9}\nCulture: {10}\n\n{11}",
+							ex.Message,
+							ProductVersion,
+							_serverIp != null ? string.Format("{0}:{1}", _serverIp, _serverPort) : "n/a",
+							Game.Player != null ? Game.Player.Coords.ToString() : "unknown",
+							Game.PerformanceHost != null
+								? string.Format("{0} mb, {1} fps", Game.PerformanceHost.Memory, Game.PerformanceHost.Fps)
+								: "unknown",
+							Diagnostics.OpenGlVersion,
+							Diagnostics.OpenGlVendor,
+							Diagnostics.OpenGlGlsl,
+							Diagnostics.OpenGlRenderer,
+							Diagnostics.OperatingSystem,
+							System.Globalization.CultureInfo.CurrentCulture.Name,
+							ex.StackTrace));
 				}
 				catch (Exception exInner)
 				{
@@ -256,7 +265,6 @@ namespace Hexpoint.Blox
 					Misc.MessageError(string.Format("Error: {0}\n\n{1}", exInner.Message, exInner.StackTrace));
 				}
 			}
-#endif
 			Application.Exit(); //close the application in case the launcher is still running
 		}
 

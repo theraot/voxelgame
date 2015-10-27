@@ -191,9 +191,10 @@ namespace Hexpoint.Blox.Server
 				catch (Exception ex)
 				{
 					WriteToServerConsoleLog(string.Format("{0} {1} caused an exception and was removed: {2}", player.UserName, player.IpAddress, ex.Message));
-#if DEBUG
-					WriteToServerConsoleLog(ex.StackTrace);
-#endif
+					if (Facade.DebugMode)
+					{
+						WriteToServerConsoleLog(ex.StackTrace);
+					}
 				}
 
 				new Connect(player.Id, player.UserName, player.Coords) { ConnectedPlayer = otherPlayer }.Send();
@@ -347,9 +348,10 @@ namespace Hexpoint.Blox.Server
 			{
 				UpdateServerConsolePlayerList();
 				WriteToServerConsoleLog(string.Format("{0} {1} caused an exception and was removed: {2}", player.UserName, player.IpAddress, ex.Message));
-#if DEBUG
-				WriteToServerConsoleLog(ex.StackTrace);
-#endif
+				if (Facade.DebugMode)
+				{
+					WriteToServerConsoleLog(ex.StackTrace);
+				}
 				foreach (var otherPlayer in Players.Values)
 				{
 					new Disconnect(player.Id, "Network Error") { ConnectedPlayer = otherPlayer }.Send(); //inform other connected players of this player disconnect

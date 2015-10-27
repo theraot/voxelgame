@@ -260,9 +260,10 @@ namespace Hexpoint.Blox.GameActions
 			}
 
 			var msg = string.Format("Disconnected from Server: {0}\n", ex.Message);
-#if DEBUG
-			msg += ex.StackTrace;
-#endif
+			if (Facade.DebugMode)
+			{
+				msg += ex.StackTrace;
+			}
 			if (Settings.Game == null) Utilities.Misc.MessageError(msg);
 			if (Game.UiHost != null)
 			{

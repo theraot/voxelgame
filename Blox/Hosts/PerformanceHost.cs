@@ -83,42 +83,44 @@ namespace Hexpoint.Blox.Hosts
 				TotalThreads = Process.GetCurrentProcess().Threads.Count;
 			}
 
-#if DEBUG
-			//get all gl errors until errors are clear, this must be done on the main thread to access the GL context
-			ErrorCode glErrorCode;
-			while ((glErrorCode = GL.GetError()) != ErrorCode.NoError)
+			if (Facade.DebugMode)
 			{
-				//get red book description for most common error codes
-				string glErrorDesc;
-				switch (glErrorCode)
+				//get all gl errors until errors are clear, this must be done on the main thread to access the GL context
+				ErrorCode glErrorCode;
+				while ((glErrorCode = GL.GetError()) != ErrorCode.NoError)
 				{
-					case ErrorCode.InvalidEnum:
-						glErrorDesc = "GLenum argument out of range";
-						break;
-					case ErrorCode.InvalidValue:
-						glErrorDesc = "Numeric argument out of range";
-						break;
-					case ErrorCode.InvalidOperation:
-						glErrorDesc = "Operation illegal in current state";
-						break;
-					case ErrorCode.StackOverflow:
-						glErrorDesc = "Command would cause a stack overflow";
-						break;
-					case ErrorCode.StackUnderflow:
-						glErrorDesc = "Command would cause a stack underflow";
-						break;
-					case ErrorCode.OutOfMemory:
-						glErrorDesc = "Not enough memory left to execute command";
-						break;
-					default:
-						glErrorDesc = "(unknown)";
-						break;
+					//get red book description for most common error codes
+					string glErrorDesc;
+					switch (glErrorCode)
+					{
+						case ErrorCode.InvalidEnum:
+							glErrorDesc = "GLenum argument out of range";
+							break;
+						case ErrorCode.InvalidValue:
+							glErrorDesc = "Numeric argument out of range";
+							break;
+						case ErrorCode.InvalidOperation:
+							glErrorDesc = "Operation illegal in current state";
+							break;
+						case ErrorCode.StackOverflow:
+							glErrorDesc = "Command would cause a stack overflow";
+							break;
+						case ErrorCode.StackUnderflow:
+							glErrorDesc = "Command would cause a stack underflow";
+							break;
+						case ErrorCode.OutOfMemory:
+							glErrorDesc = "Not enough memory left to execute command";
+							break;
+						default:
+							glErrorDesc = "(unknown)";
+							break;
+					}
+					Debug.WriteLine("***GL Error! {0}: {1}***", glErrorCode, glErrorDesc);
 				}
-				Debug.WriteLine("***GL Error! {0}: {1}***", glErrorCode, glErrorDesc);
-			}
 
-			Debug.WriteLineIf(_updateTime > 1.03, string.Format("Last update cycle second ran slow. Cycle took {0} seconds", _updateTime));
-#endif
+				Debug.WriteLineIf(_updateTime > 1.03,
+					string.Format("Last update cycle second ran slow. Cycle took {0} seconds", _updateTime));
+			}
 		}
 
 		public void Render(FrameEventArgs e)
