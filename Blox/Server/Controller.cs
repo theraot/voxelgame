@@ -65,7 +65,7 @@ namespace Hexpoint.Blox.Server
 
 			if (Facade.Configuration.IsServer)
 			{
-				_updateTimer = new System.Timers.Timer(1000 / Constants.UPDATES_PER_SECOND) { AutoReset = true };
+				_updateTimer = new System.Timers.Timer(1000.0 / Constants.UPDATES_PER_SECOND) { AutoReset = true };
 				_updateTimer.Elapsed += UpdateHandler;
 				_updateTimer.Start();
 				UpdateStopwatch.Start();
