@@ -205,10 +205,10 @@
 			// txtNewWorldName
 			// 
 			this.txtNewWorldName.BackColor = System.Drawing.SystemColors.Control;
-			this.txtNewWorldName.Location = new System.Drawing.Point(50, 20);
+			this.txtNewWorldName.Location = new System.Drawing.Point(52, 20);
 			this.txtNewWorldName.MaxLength = 32;
 			this.txtNewWorldName.Name = "txtNewWorldName";
-			this.txtNewWorldName.Size = new System.Drawing.Size(190, 20);
+			this.txtNewWorldName.Size = new System.Drawing.Size(188, 20);
 			this.txtNewWorldName.TabIndex = 17;
 			// 
 			// ddlNewWorldType
@@ -217,10 +217,10 @@
 			this.ddlNewWorldType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ddlNewWorldType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.ddlNewWorldType.FormattingEnabled = true;
-			this.ddlNewWorldType.Location = new System.Drawing.Point(50, 46);
+			this.ddlNewWorldType.Location = new System.Drawing.Point(52, 46);
 			this.ddlNewWorldType.MaxLength = 24;
 			this.ddlNewWorldType.Name = "ddlNewWorldType";
-			this.ddlNewWorldType.Size = new System.Drawing.Size(88, 21);
+			this.ddlNewWorldType.Size = new System.Drawing.Size(71, 21);
 			this.ddlNewWorldType.TabIndex = 18;
 			// 
 			// gbNewWorld
@@ -262,7 +262,7 @@
 			this.label7.AutoSize = true;
 			this.label7.BackColor = System.Drawing.Color.Transparent;
 			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(144, 76);
+			this.label7.Location = new System.Drawing.Point(129, 76);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(44, 13);
 			this.label7.TabIndex = 25;
@@ -272,10 +272,10 @@
 			// txtSeed
 			// 
 			this.txtSeed.BackColor = System.Drawing.SystemColors.Control;
-			this.txtSeed.Location = new System.Drawing.Point(50, 73);
+			this.txtSeed.Location = new System.Drawing.Point(52, 73);
 			this.txtSeed.MaxLength = 12;
 			this.txtSeed.Name = "txtSeed";
-			this.txtSeed.Size = new System.Drawing.Size(88, 20);
+			this.txtSeed.Size = new System.Drawing.Size(73, 20);
 			this.txtSeed.TabIndex = 24;
 			// 
 			// label5
@@ -292,7 +292,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(141, 49);
+			this.label3.Location = new System.Drawing.Point(129, 49);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(27, 13);
 			this.label3.TabIndex = 24;
@@ -428,7 +428,7 @@
 			this.ddlViewDistance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ddlViewDistance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.ddlViewDistance.FormattingEnabled = true;
-			this.ddlViewDistance.Location = new System.Drawing.Point(87, 86);
+			this.ddlViewDistance.Location = new System.Drawing.Point(102, 86);
 			this.ddlViewDistance.MaxLength = 24;
 			this.ddlViewDistance.Name = "ddlViewDistance";
 			this.ddlViewDistance.Size = new System.Drawing.Size(70, 21);
@@ -493,7 +493,6 @@
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(552, 24);
 			this.menuStrip1.TabIndex = 61;
-			this.menuStrip1.Text = "menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
@@ -537,19 +536,19 @@
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(168, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 6);
 			// 
 			// mnuVisitWebSite
 			// 
 			this.mnuVisitWebSite.Name = "mnuVisitWebSite";
-			this.mnuVisitWebSite.Size = new System.Drawing.Size(171, 22);
+			this.mnuVisitWebSite.Size = new System.Drawing.Size(145, 22);
 			this.mnuVisitWebSite.Text = "Visit Web Site";
 			this.mnuVisitWebSite.Click += new System.EventHandler(this.mnuVisitWebSite_Click);
 			// 
 			// mnuAbout
 			// 
 			this.mnuAbout.Name = "mnuAbout";
-			this.mnuAbout.Size = new System.Drawing.Size(171, 22);
+			this.mnuAbout.Size = new System.Drawing.Size(145, 22);
 			this.mnuAbout.Text = "About";
 			this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
 			// 

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -134,6 +135,25 @@ namespace Hexpoint.Blox
 			}
 		}
 
+		public static void LocalizeControl(Control control)
+		{
+			var _ = Texts;
+			control.Text = _(control.Text, null);
+			var property = TypeDescriptor.GetProperties(control).Find("Controls", false);
+			if (property != null)
+			{
+				var controls = property.GetValue(control);
+				var controlCollection = controls as Control.ControlCollection;
+				if (controlCollection != null)
+				{
+					foreach (Control subControl in controlCollection)
+					{
+						LocalizeControl(subControl);
+					}
+				}
+			}
+		}
+
 		public static void SaveConfiguration()
 		{
 			try
@@ -185,7 +205,7 @@ namespace Hexpoint.Blox
 				resourceNames.Add(composite.ToString());
 			}
 			resourceNames.Reverse();
-			var stream = Resources.Read(assembly, ".json", new []{"Lang"}, resourceNames.ToArray());
+			var stream = Resources.Read(assembly, ".json", new[] { "Lang" }, resourceNames.ToArray());
 			if (stream == null)
 			{
 				Logbook.Trace

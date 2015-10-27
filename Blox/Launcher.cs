@@ -14,6 +14,7 @@ namespace Hexpoint.Blox
 		public Launcher()
 		{
 			InitializeComponent();
+			Facade.LocalizeControl(this);
 			Settings.Launcher = this;
 		}
 
