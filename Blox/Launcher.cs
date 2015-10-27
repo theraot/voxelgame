@@ -24,11 +24,6 @@ namespace Hexpoint.Blox
 			ddlServerIp.Items.AddRange(new object[] { "127.0.0.1 (localhost)", "hornet.voxelgame.com" });
 #if DEBUG
 			Text += " (DEBUG)";
-#else
-			//mnuLaunchServer.Enabled = false; //use this to not show the option to launch a server in release mode
-
-			//auto check for newer version when in release mode
-			CheckForUpdates.BeginGetNewestVersionNumber(task => { if (!task.IsFaulted && CheckForUpdates.IsNewerVersion(new Version(task.Result))) btnUpgradeAvailable.Visible = true; });
 #endif
 
 			if (Facade.Configuration.Mode == ModeType.JoinServer) rbJoinServer.Checked = true; else rbSinglePlayer.Checked = true; //default to single player
