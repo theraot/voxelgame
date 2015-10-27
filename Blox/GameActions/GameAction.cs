@@ -184,6 +184,7 @@ namespace Hexpoint.Blox.GameActions
 		}
 
 		/// <summary>Helper to ensure the requested amount is all read before we continue.</summary>
+		/// <param name="length">Amount to read</param>
 		protected byte[] ReadStream(int length)
 		{
 			var bytes = new byte[length];
